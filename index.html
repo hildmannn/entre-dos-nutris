@@ -18,28 +18,78 @@ a{color:#1e2d5a;text-decoration:none}
 a:hover{color:#3d5594}
 *{box-sizing:border-box}
 input::placeholder{color:#7d88a6}
+body{overflow-x:clip}
+@media (max-width:720px){
+  .m-header{padding:8px 16px !important;gap:8px !important}
+  .m-logo{width:40px !important;height:40px !important}
+  .m-brand{font-size:19px !important}
+  .m-nav{order:3;width:100%;flex-wrap:nowrap !important;gap:20px !important;overflow-x:auto;padding:4px 0 2px;font-size:14px !important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .m-nav::-webkit-scrollbar{display:none}
+  .m-nav a{white-space:nowrap}
+  .m-nav .m-cta{display:none}
+  .m-hero{height:72vh !important;min-height:440px !important}
+  .m-hero-text{padding:0 16px 84px !important}
+  .m-kicker{font-size:12px !important;margin-bottom:10px !important}
+  .m-h1{font-size:34px !important;line-height:1.08 !important}
+  .m-hero-ctrl{bottom:24px !important}
+  .m-hero-ctrl > div{padding:0 16px !important}
+  .m-arrow{width:42px !important;height:42px !important;font-size:18px !important}
+  .m-section{padding:64px 16px !important}
+  .m-about{gap:36px !important}
+  .m-badge{right:12px !important;bottom:16px !important;font-size:17px !important;padding:10px 16px !important}
+  .m-h2{font-size:34px !important}
+  .m-lead{font-size:17px !important}
+  .m-head{margin-bottom:32px !important;gap:16px !important}
+  .m-head p{font-size:16px !important}
+  .m-nutri-top{grid-template-columns:1fr !important}
+  .m-nutri-photo{height:300px !important;min-height:0 !important}
+  .m-pad{padding:22px 20px !important}
+  .m-nutri-name{font-size:32px !important}
+  .m-frases{white-space:normal !important;gap:6px 14px !important;font-size:21px !important;text-align:center;padding:0 16px !important}
+  .m-prods{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:24px 12px !important}
+  .m-prod-row{flex-direction:column;gap:4px !important}
+  .m-prod-name{font-size:16px !important}
+  .m-prod-price{font-size:19px !important}
+  .m-prod-btn{padding:10px 8px !important;font-size:13px !important;margin-top:auto}
+  .m-prod-tag{top:8px !important;left:8px !important;font-size:11px !important;padding:4px 9px !important}
+  .m-chips{flex-wrap:nowrap !important;overflow-x:auto;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .m-chips::-webkit-scrollbar{display:none}
+  .m-chips button{white-space:nowrap;flex:0 0 auto}
+  .m-featured{margin-bottom:40px !important;border-radius:22px !important}
+  .m-featured-img{min-height:220px !important}
+  .m-featured-txt{padding:24px 20px 28px !important;gap:14px !important}
+  .m-featured-txt p{font-size:16px !important}
+  .m-recs{gap:28px !important}
+  .m-footer{padding:48px 16px 32px !important}
+  .m-foot-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:28px 16px !important}
+  .m-foot-grid > div:first-child{grid-column:1 / -1}
+  .m-modal{padding:0 !important}
+  .m-modal > article{border-radius:0 !important;min-height:100%}
+  .m-modal-img{height:220px !important}
+  .m-modal-txt{padding:28px 20px 40px !important}
+}
 </style>
 </helmet>
 
 <div style="min-height:100vh;background:#f8f6f1">
 
 <header style="position:sticky;top:0;z-index:50;background:rgba(248,246,241,0.94);backdrop-filter:blur(8px);border-bottom:1px solid #e1e3e8">
-  <div style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+  <div class="m-header" style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
     <a href="#inicio" style="display:flex;align-items:center;gap:12px">
-      <img src="assets/logo-circular.png" alt="Entre dos nutris" style="width:52px;height:52px;object-fit:cover;object-position:center;border-radius:50%;display:block">
-      <span style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.2px">entre dos nutris</span>
+      <img class="m-logo" src="assets/logo-circular.png" alt="Entre dos nutris" style="width:52px;height:52px;object-fit:cover;object-position:center;border-radius:50%;display:block">
+      <span class="m-brand" style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.2px">entre dos nutris</span>
     </a>
-    <nav style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
+    <nav class="m-nav" style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
       <a href="#nosotras">Nosotras</a>
       <a href="#turnos">Turnos</a>
       <a href="#productos">Productos</a>
       <a href="#recetario">Recetario</a>
-      <a href="#turnos" style="background:#1e2d5a;color:#f8f6f1;padding:10px 18px;border-radius:999px">Sacá tu turno</a>
+      <a class="m-cta" href="#turnos" style="background:#1e2d5a;color:#f8f6f1;padding:10px 18px;border-radius:999px">Sacá tu turno</a>
     </nav>
   </div>
 </header>
 
-<section id="inicio" data-screen-label="Inicio" style="position:relative;height:min(82vh,720px);min-height:480px;overflow:hidden;background:#dfe6f1">
+<section class="m-hero" id="inicio" data-screen-label="Inicio" style="position:relative;height:min(82vh,720px);min-height:480px;overflow:hidden;background:#dfe6f1">
   <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
     <div style="position:absolute;inset:0;opacity:{{ s.opacity }};transition:opacity 900ms ease;pointer-events:{{ s.pe }}">
       <div style="position:absolute;inset:0">
@@ -47,14 +97,14 @@ input::placeholder{color:#7d88a6}
       </div>
       <div style="position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(to top, rgba(20,30,62,0.78), rgba(20,30,62,0));pointer-events:none"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;pointer-events:none">
-        <div style="max-width:1240px;margin:0 auto;padding:0 24px 88px">
-          <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#dfe6f1;margin-bottom:14px">{{ s.kicker }}</div>
-          <h1 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(40px,6.4vw,84px);line-height:1;margin:0;color:#fff;max-width:900px;text-wrap:balance">{{ s.title }}</h1>
+        <div class="m-hero-text" style="max-width:1240px;margin:0 auto;padding:0 24px 88px">
+          <div class="m-kicker" style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#dfe6f1;margin-bottom:14px">{{ s.kicker }}</div>
+          <h1 class="m-h1" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(40px,6.4vw,84px);line-height:1;margin:0;color:#fff;max-width:900px;text-wrap:balance">{{ s.title }}</h1>
         </div>
       </div>
     </div>
   </sc-for>
-  <div style="position:absolute;left:0;right:0;bottom:32px">
+  <div class="m-hero-ctrl" style="position:absolute;left:0;right:0;bottom:32px">
     <div style="max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
       <div style="display:flex;gap:8px">
         <sc-for list="{{ slides }}" as="s" hint-placeholder-count="4">
@@ -62,24 +112,24 @@ input::placeholder{color:#7d88a6}
         </sc-for>
       </div>
       <div style="display:flex;gap:8px">
-        <button onClick="{{ prevSlide }}" aria-label="Anterior" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">←</button>
-        <button onClick="{{ nextSlide }}" aria-label="Siguiente" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">→</button>
+        <button class="m-arrow" onClick="{{ prevSlide }}" aria-label="Anterior" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">←</button>
+        <button class="m-arrow" onClick="{{ nextSlide }}" aria-label="Siguiente" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">→</button>
       </div>
     </div>
   </div>
 </section>
 
-<section id="nosotras" data-screen-label="Nosotras" style="padding:112px 24px">
-  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:center">
+<section class="m-section" id="nosotras" data-screen-label="Nosotras" style="padding:112px 24px">
+  <div class="m-about" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:center">
     <div style="position:relative">
       <img src="assets/jose-y-martina.jpg" alt="Jose y Martina" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:28px;display:block">
-      <div style="position:absolute;right:-12px;bottom:28px;background:#1e2d5a;color:#f8f6f1;padding:14px 20px;border-radius:16px;font-family:'DM Serif Display',serif;font-size:20px;transform:rotate(-3deg)">Río Cuarto, Córdoba</div>
+      <div class="m-badge" style="position:absolute;right:-12px;bottom:28px;background:#1e2d5a;color:#f8f6f1;padding:14px 20px;border-radius:16px;font-family:'DM Serif Display',serif;font-size:20px;transform:rotate(-3deg)">Río Cuarto, Córdoba</div>
     </div>
     <div>
       <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Sobre nosotras</div>
-      <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 28px;text-wrap:balance">Dos nutris, un mismo plato <span style="font-style:italic;color:#5a6b9a">(y mucho amor en cada receta)</span></h2>
-      <p style="font-size:19px;line-height:1.6;margin:0 0 18px;color:#3b4870;text-wrap:pretty">Somos Jose y Martina, licenciadas en Nutrición por la Universidad de Mendoza. Nos juntamos para hacer algo que nos encanta: demostrar que comer sano puede ser rico, simple y sin culpa.</p>
-      <p style="font-size:19px;line-height:1.6;margin:0 0 32px;color:#3b4870;text-wrap:pretty">Compartimos este espacio, las recetas y los productos, pero cada una atiende por su cuenta. Elegí con quién te sentís más cómoda y sacá turno directo con ella.</p>
+      <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 28px;text-wrap:balance">Dos nutris, un mismo plato <span style="font-style:italic;color:#5a6b9a">(y mucho amor en cada receta)</span></h2>
+      <p class="m-lead" style="font-size:19px;line-height:1.6;margin:0 0 18px;color:#3b4870;text-wrap:pretty">Somos Jose y Martina, licenciadas en Nutrición por la Universidad de Mendoza. Nos juntamos para hacer algo que nos encanta: demostrar que comer sano puede ser rico, simple y sin culpa.</p>
+      <p class="m-lead" style="font-size:19px;line-height:1.6;margin:0 0 32px;color:#3b4870;text-wrap:pretty">Compartimos este espacio, las recetas y los productos, pero cada una atiende por su cuenta. Elegí con quién te sentís más cómoda y sacá turno directo con ella.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <span style="border:1px solid #c9d1e3;border-radius:999px;padding:10px 18px;font-size:15px">Online y presencial</span>
       </div>
@@ -87,28 +137,28 @@ input::placeholder{color:#7d88a6}
   </div>
 </section>
 
-<section id="turnos" data-screen-label="Turnos" style="padding:112px 24px;background:#dfe6f1">
+<section class="m-section" id="turnos" data-screen-label="Turnos" style="padding:112px 24px;background:#dfe6f1">
   <div style="max-width:1240px;margin:0 auto">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px">
+    <div class="m-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px">
       <div>
         <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Turnos</div>
-        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Elegí tu nutri y reservá tu lugar</h2>
+        <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Elegí tu nutri y reservá tu lugar</h2>
       </div>
       <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Cada una maneja su propia agenda. El botón te lleva directo al calendario de la nutri que elijas.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:28px">
       <sc-for list="{{ nutris }}" as="n" hint-placeholder-count="2">
         <article style="background:#f8f6f1;border-radius:28px;overflow:hidden;display:flex;flex-direction:column">
-          <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:0">
-            <img src="{{ n.photo }}" alt="{{ n.name }}" style="width:100%;height:100%;min-height:260px;object-fit:cover;object-position:{{ n.pos }};display:block">
-            <div style="padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
+          <div class="m-nutri-top" style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:0">
+            <img class="m-nutri-photo" src="{{ n.photo }}" alt="{{ n.name }}" style="width:100%;height:100%;min-height:260px;object-fit:cover;object-position:{{ n.pos }};display:block">
+            <div class="m-pad" style="padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
               <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a">{{ n.role }}</div>
-              <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:38px;line-height:1;margin:0">{{ n.name }}</h3>
+              <h3 class="m-nutri-name" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:38px;line-height:1;margin:0">{{ n.name }}</h3>
               <div style="font-size:15px;color:#3b4870">{{ n.mp }}</div>
               <p style="font-size:16px;line-height:1.5;margin:8px 0 0;color:#3b4870;text-wrap:pretty">{{ n.bio }}</p>
             </div>
           </div>
-          <div style="padding:28px;display:grid;gap:24px;border-top:1px solid #e1e3e8;flex:1">
+          <div class="m-pad" style="padding:28px;display:grid;gap:24px;border-top:1px solid #e1e3e8;flex:1">
             <div>
               <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">Horarios</div>
               <div style="display:grid;gap:0">
@@ -142,7 +192,7 @@ input::placeholder{color:#7d88a6}
 </section>
 
 <section data-screen-label="Frases" style="background:#1e2d5a;color:#f8f6f1;padding:28px 0;overflow:hidden">
-  <div style="display:flex;gap:48px;white-space:nowrap;font-family:'DM Serif Display',serif;font-size:30px;font-style:italic;justify-content:center;flex-wrap:wrap;padding:0 24px">
+  <div class="m-frases" style="display:flex;gap:48px;white-space:nowrap;font-family:'DM Serif Display',serif;font-size:30px;font-style:italic;justify-content:center;flex-wrap:wrap;padding:0 24px">
     <span>Comé colores</span><span style="color:#8fa3d4">·</span>
     <span>Tomá agüita</span><span style="color:#8fa3d4">·</span>
     <span>El postre también nutre el alma</span><span style="color:#8fa3d4">·</span>
@@ -150,49 +200,49 @@ input::placeholder{color:#7d88a6}
   </div>
 </section>
 
-<section id="productos" data-screen-label="Productos" style="padding:112px 24px">
+<section class="m-section" id="productos" data-screen-label="Productos" style="padding:112px 24px">
   <div style="max-width:1240px;margin:0 auto">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+    <div class="m-head" style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
       <div>
         <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">La despensa</div>
-        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Productos naturales que usamos de verdad</h2>
+        <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Productos naturales que usamos de verdad</h2>
       </div>
       <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Elegí lo que quieras y pedilo por WhatsApp. Retiro en Río Cuarto o envío a coordinar.</p>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px">
+    <div class="m-chips" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px">
       <sc-for list="{{ prodCats }}" as="c" hint-placeholder-count="5">
         <button onClick="{{ c.pick }}" style="border:1px solid #1e2d5a;background:{{ c.bg }};color:{{ c.fg }};padding:10px 18px;border-radius:999px;font-family:inherit;font-size:15px;cursor:pointer">{{ c.label }}</button>
       </sc-for>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:28px">
+    <div class="m-prods" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:28px">
       <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
         <article style="display:flex;flex-direction:column;gap:14px">
           <div style="aspect-ratio:1/1;background:#eceae3;border-radius:22px;overflow:hidden;position:relative">
             <image-slot id="prod-{{ p.id }}" shape="rounded" src="assets/prod-{{ p.id }}.jpg" radius="22" placeholder="Foto: {{ p.name }}"></image-slot>
-            <span style="position:absolute;top:14px;left:14px;background:#f8f6f1;padding:6px 12px;border-radius:999px;font-size:13px;pointer-events:none">{{ p.cat }}</span>
+            <span class="m-prod-tag" style="position:absolute;top:14px;left:14px;background:#f8f6f1;padding:6px 12px;border-radius:999px;font-size:13px;pointer-events:none">{{ p.cat }}</span>
           </div>
-          <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
-            <h3 style="font-size:19px;font-weight:500;margin:0;line-height:1.25">{{ p.name }}</h3>
-            <span style="font-family:'DM Serif Display',serif;font-size:22px;white-space:nowrap">{{ p.price }}</span>
+          <div class="m-prod-row" style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+            <h3 class="m-prod-name" style="font-size:19px;font-weight:500;margin:0;line-height:1.25">{{ p.name }}</h3>
+            <span class="m-prod-price" style="font-family:'DM Serif Display',serif;font-size:22px;white-space:nowrap">{{ p.price }}</span>
           </div>
           <div style="font-size:15px;color:#5a6b9a;margin-top:-8px">{{ p.size }}</div>
-          <a href="{{ p.wa }}" target="_blank" rel="noopener" style="text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1">Pedir por WhatsApp</a>
+          <a class="m-prod-btn" href="{{ p.wa }}" target="_blank" rel="noopener" style="text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1">Pedir por WhatsApp</a>
         </article>
       </sc-for>
     </div>
   </div>
 </section>
 
-<section id="recetario" data-screen-label="Recetario" style="padding:112px 24px;background:#eef1f6">
+<section class="m-section" id="recetario" data-screen-label="Recetario" style="padding:112px 24px;background:#eef1f6">
   <div style="max-width:1240px;margin:0 auto">
     <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Recetario</div>
-    <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 48px;max-width:760px;text-wrap:balance">Recetas nuevas todas las semanas <span style="font-style:italic;color:#5a6b9a">(probadas por nosotras, obvio)</span></h2>
+    <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 48px;max-width:760px;text-wrap:balance">Recetas nuevas todas las semanas <span style="font-style:italic;color:#5a6b9a">(probadas por nosotras, obvio)</span></h2>
 
-    <article onClick="{{ openFeatured }}" style="cursor:pointer;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:#1e2d5a;color:#f8f6f1;border-radius:28px;overflow:hidden;margin-bottom:64px">
-      <div style="min-height:360px;position:relative">
+    <article class="m-featured" onClick="{{ openFeatured }}" style="cursor:pointer;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:#1e2d5a;color:#f8f6f1;border-radius:28px;overflow:hidden;margin-bottom:64px">
+      <div class="m-featured-img" style="min-height:360px;position:relative">
         <image-slot id="rec-{{ featured.id }}" shape="rect" src="assets/rec-{{ featured.id }}.jpg" placeholder="Foto: {{ featured.title }}"></image-slot>
       </div>
-      <div style="padding:44px;display:flex;flex-direction:column;justify-content:center;gap:18px">
+      <div class="m-featured-txt" style="padding:44px;display:flex;flex-direction:column;justify-content:center;gap:18px">
         <span style="align-self:flex-start;background:#dfe6f1;color:#1e2d5a;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Receta de la semana</span>
         <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(32px,3.6vw,48px);line-height:1.05;margin:0">{{ featured.title }}</h3>
         <p style="font-size:18px;line-height:1.55;margin:0;color:#d3dbec;text-wrap:pretty">{{ featured.desc }}</p>
@@ -205,19 +255,19 @@ input::placeholder{color:#7d88a6}
 
     <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
       <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Buscá: avena, palta, budín..." style="flex:1 1 280px;font-family:inherit;font-size:16px;padding:14px 20px;border-radius:999px;border:1px solid #c9d1e3;background:#fff;color:#1e2d5a;outline:none">
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="m-chips" style="display:flex;gap:8px;flex-wrap:wrap">
         <sc-for list="{{ recCats }}" as="c" hint-placeholder-count="5">
           <button onClick="{{ c.pick }}" style="border:1px solid #1e2d5a;background:{{ c.bg }};color:{{ c.fg }};padding:10px 18px;border-radius:999px;font-family:inherit;font-size:15px;cursor:pointer">{{ c.label }}</button>
         </sc-for>
       </div>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px">
+    <div class="m-chips" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px">
       <sc-for list="{{ recTags }}" as="t" hint-placeholder-count="5">
         <button onClick="{{ t.pick }}" style="border:1px dashed #5a6b9a;background:{{ t.bg }};color:{{ t.fg }};padding:7px 14px;border-radius:999px;font-family:inherit;font-size:14px;cursor:pointer">{{ t.label }}</button>
       </sc-for>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:32px">
+    <div class="m-recs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:32px">
       <sc-for list="{{ recipes }}" as="r" hint-placeholder-count="6">
         <article onClick="{{ r.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px">
           <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#dfe6f1;position:relative">
@@ -239,8 +289,8 @@ input::placeholder{color:#7d88a6}
   </div>
 </section>
 
-<footer style="background:#1e2d5a;color:#dfe6f1;padding:72px 24px 40px">
-  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px">
+<footer class="m-footer" style="background:#1e2d5a;color:#dfe6f1;padding:72px 24px 40px">
+  <div class="m-foot-grid" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px">
     <div style="display:flex;flex-direction:column;gap:16px">
       <img src="assets/logo-circular.png" alt="Entre dos nutris" style="width:96px;height:96px;object-fit:cover;border-radius:50%;display:block">
       <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#f8f6f1">entre dos nutris</div>
@@ -265,13 +315,13 @@ input::placeholder{color:#7d88a6}
 </footer>
 
 <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeRecipe }}" style="position:fixed;inset:0;z-index:100;background:rgba(20,30,62,0.55);display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;padding:40px 16px">
+  <div class="m-modal" onClick="{{ closeRecipe }}" style="position:fixed;inset:0;z-index:100;background:rgba(20,30,62,0.55);display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;padding:40px 16px">
     <article onClick="{{ stop }}" style="background:#f8f6f1;border-radius:28px;max-width:920px;width:100%;overflow:hidden;position:relative">
       <button onClick="{{ closeRecipe }}" aria-label="Cerrar" style="position:absolute;top:16px;right:16px;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:#f8f6f1;color:#1e2d5a;font-size:22px;cursor:pointer">✕</button>
-      <div style="height:360px;position:relative;background:#dfe6f1">
+      <div class="m-modal-img" style="height:360px;position:relative;background:#dfe6f1">
         <image-slot id="rec-{{ sel.id }}" shape="rect" src="assets/rec-{{ sel.id }}.jpg" placeholder="Foto: {{ sel.title }}"></image-slot>
       </div>
-      <div style="padding:40px clamp(24px,5vw,56px) 56px">
+      <div class="m-modal-txt" style="padding:40px clamp(24px,5vw,56px) 56px">
         <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">{{ sel.cat }}</div>
         <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.4vw,54px);line-height:1.05;margin:0 0 16px">{{ sel.title }}</h2>
         <p style="font-size:18px;line-height:1.55;margin:0 0 24px;color:#3b4870;text-wrap:pretty">{{ sel.desc }}</p>
