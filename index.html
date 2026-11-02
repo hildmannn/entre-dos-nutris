@@ -10,7 +10,6 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
 <style>
 html{scroll-behavior:smooth}
 body{margin:0;background:#f8f6f1;color:#1e2d5a;font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
@@ -20,13 +19,14 @@ a:hover{color:#3d5594}
 input::placeholder{color:#7d88a6}
 body{overflow-x:clip}
 @media (max-width:720px){
-  .m-header{padding:8px 16px !important;gap:8px !important}
+  .m-header{padding:8px 16px !important;gap:8px !important;flex-wrap:nowrap !important}
+  .m-burger{display:flex !important}
   .m-logo{width:40px !important;height:40px !important}
   .m-brand{font-size:19px !important}
-  .m-nav{order:3;width:100%;flex-wrap:nowrap !important;gap:20px !important;overflow-x:auto;padding:4px 0 2px;font-size:14px !important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .m-nav::-webkit-scrollbar{display:none}
-  .m-nav a{white-space:nowrap}
-  .m-nav .m-cta{display:none}
+  .m-nav{display:none !important;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch !important;gap:0 !important;background:#f8f6f1;border-bottom:1px solid #e1e3e8;padding:4px 16px 16px;font-size:17px !important;box-shadow:0 12px 24px rgba(20,30,62,0.08)}
+  .m-nav.open{display:flex !important}
+  .m-nav a{padding:14px 4px;border-bottom:1px solid #e1e3e8}
+  .m-nav .m-cta{margin-top:12px;text-align:center;border-bottom:0;padding:14px 18px !important}
   .m-hero{height:72vh !important;min-height:440px !important}
   .m-hero-text{padding:0 16px 84px !important}
   .m-kicker{font-size:12px !important;margin-bottom:10px !important}
@@ -45,7 +45,11 @@ body{overflow-x:clip}
   .m-nutri-photo{height:300px !important;min-height:0 !important}
   .m-pad{padding:22px 20px !important}
   .m-nutri-name{font-size:32px !important}
-  .m-frases{white-space:normal !important;gap:6px 14px !important;font-size:21px !important;text-align:center;padding:0 16px !important}
+  .m-frases-sec{padding:18px 0 !important}
+  .m-frases{display:none !important}
+  .m-marquee{display:block !important;overflow:hidden}
+  .m-marquee-track{display:flex;width:max-content;white-space:nowrap;font-family:'DM Serif Display',serif;font-style:italic;font-size:22px;animation:m-marquee 26s linear infinite}
+  .m-marquee-track span{padding:0 12px}
   .m-prods{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:24px 12px !important}
   .m-prod-row{flex-direction:column;gap:4px !important}
   .m-prod-name{font-size:16px !important}
@@ -59,7 +63,11 @@ body{overflow-x:clip}
   .m-featured-img{min-height:220px !important}
   .m-featured-txt{padding:24px 20px 28px !important;gap:14px !important}
   .m-featured-txt p{font-size:16px !important}
-  .m-recs{gap:28px !important}
+  .m-recs{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:24px 12px !important}
+  .m-recs article{gap:8px !important}
+  .m-rec-meta{font-size:11px !important;letter-spacing:0.8px !important}
+  .m-rec-title{font-size:19px !important}
+  .m-rec-tag{font-size:11px !important;padding:4px 8px !important}
   .m-footer{padding:48px 16px 32px !important}
   .m-foot-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:28px 16px !important}
   .m-foot-grid > div:first-child{grid-column:1 / -1}
@@ -68,6 +76,11 @@ body{overflow-x:clip}
   .m-modal-img{height:220px !important}
   .m-modal-txt{padding:28px 20px 40px !important}
 }
+@media (min-width:540px) and (max-width:720px){
+  .m-prods,.m-recs{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+}
+@keyframes m-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.m-marquee-track{animation:none}}
 </style>
 </helmet>
 
@@ -79,7 +92,8 @@ body{overflow-x:clip}
       <img class="m-logo" src="assets/logo-circular.png" alt="Entre dos nutris" style="width:52px;height:52px;object-fit:cover;object-position:center;border-radius:50%;display:block">
       <span class="m-brand" style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.2px">entre dos nutris</span>
     </a>
-    <nav class="m-nav" style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
+    <button class="m-burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;width:44px;height:44px;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:20px;cursor:pointer;align-items:center;justify-content:center;font-family:inherit">{{ menuIcon }}</button>
+    <nav class="m-nav {{ menuCls }}" onClick="{{ closeMenu }}" style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
       <a href="#nosotras">Nosotras</a>
       <a href="#turnos">Turnos</a>
       <a href="#productos">Productos</a>
@@ -89,11 +103,11 @@ body{overflow-x:clip}
   </div>
 </header>
 
-<section class="m-hero" id="inicio" data-screen-label="Inicio" style="position:relative;height:min(82vh,720px);min-height:480px;overflow:hidden;background:#dfe6f1">
+<section class="m-hero" onTouchStart="{{ heroTouchStart }}" onTouchEnd="{{ heroTouchEnd }}" id="inicio" data-screen-label="Inicio" style="position:relative;height:min(82vh,720px);min-height:480px;overflow:hidden;background:#dfe6f1">
   <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
     <div style="position:absolute;inset:0;opacity:{{ s.opacity }};transition:opacity 900ms ease;pointer-events:{{ s.pe }}">
       <div style="position:absolute;inset:0">
-        <image-slot id="hero-{{ s.id }}" shape="rect" src="assets/slide-{{ s.id }}.jpg" placeholder="{{ s.ph }}"></image-slot>
+        <img src="assets/slide-{{ s.id }}.jpg" alt="{{ s.ph }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
       </div>
       <div style="position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(to top, rgba(20,30,62,0.78), rgba(20,30,62,0));pointer-events:none"></div>
       <div style="position:absolute;left:0;right:0;bottom:0;pointer-events:none">
@@ -191,12 +205,15 @@ body{overflow-x:clip}
   </div>
 </section>
 
-<section data-screen-label="Frases" style="background:#1e2d5a;color:#f8f6f1;padding:28px 0;overflow:hidden">
+<section class="m-frases-sec" data-screen-label="Frases" style="background:#1e2d5a;color:#f8f6f1;padding:28px 0;overflow:hidden">
   <div class="m-frases" style="display:flex;gap:48px;white-space:nowrap;font-family:'DM Serif Display',serif;font-size:30px;font-style:italic;justify-content:center;flex-wrap:wrap;padding:0 24px">
     <span>Comé colores</span><span style="color:#8fa3d4">·</span>
     <span>Tomá agüita</span><span style="color:#8fa3d4">·</span>
     <span>El postre también nutre el alma</span><span style="color:#8fa3d4">·</span>
     <span>Sin culpa, con evidencia</span>
+  </div>
+  <div class="m-marquee" aria-hidden="true" style="display:none">
+    <div class="m-marquee-track"><span>Comé colores</span><span style="color:#8fa3d4">·</span><span>Tomá agüita</span><span style="color:#8fa3d4">·</span><span>El postre también nutre el alma</span><span style="color:#8fa3d4">·</span><span>Sin culpa, con evidencia</span><span style="color:#8fa3d4">·</span><span>Comé colores</span><span style="color:#8fa3d4">·</span><span>Tomá agüita</span><span style="color:#8fa3d4">·</span><span>El postre también nutre el alma</span><span style="color:#8fa3d4">·</span><span>Sin culpa, con evidencia</span><span style="color:#8fa3d4">·</span></div>
   </div>
 </section>
 
@@ -218,7 +235,7 @@ body{overflow-x:clip}
       <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
         <article style="display:flex;flex-direction:column;gap:14px">
           <div style="aspect-ratio:1/1;background:#eceae3;border-radius:22px;overflow:hidden;position:relative">
-            <image-slot id="prod-{{ p.id }}" shape="rounded" src="assets/prod-{{ p.id }}.jpg" radius="22" placeholder="Foto: {{ p.name }}"></image-slot>
+            <img src="assets/prod-{{ p.id }}.jpg" alt="{{ p.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
             <span class="m-prod-tag" style="position:absolute;top:14px;left:14px;background:#f8f6f1;padding:6px 12px;border-radius:999px;font-size:13px;pointer-events:none">{{ p.cat }}</span>
           </div>
           <div class="m-prod-row" style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
@@ -240,7 +257,7 @@ body{overflow-x:clip}
 
     <article class="m-featured" onClick="{{ openFeatured }}" style="cursor:pointer;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:#1e2d5a;color:#f8f6f1;border-radius:28px;overflow:hidden;margin-bottom:64px">
       <div class="m-featured-img" style="min-height:360px;position:relative">
-        <image-slot id="rec-{{ featured.id }}" shape="rect" src="assets/rec-{{ featured.id }}.jpg" placeholder="Foto: {{ featured.title }}"></image-slot>
+        <img src="assets/rec-{{ featured.id }}.jpg" alt="{{ featured.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
       </div>
       <div class="m-featured-txt" style="padding:44px;display:flex;flex-direction:column;justify-content:center;gap:18px">
         <span style="align-self:flex-start;background:#dfe6f1;color:#1e2d5a;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Receta de la semana</span>
@@ -271,13 +288,13 @@ body{overflow-x:clip}
       <sc-for list="{{ recipes }}" as="r" hint-placeholder-count="6">
         <article onClick="{{ r.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px">
           <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#dfe6f1;position:relative">
-            <image-slot id="rec-{{ r.id }}" shape="rounded" src="assets/rec-{{ r.id }}.jpg" radius="22" placeholder="Foto: {{ r.title }}"></image-slot>
+            <img src="assets/rec-{{ r.id }}.jpg" alt="{{ r.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
           </div>
-          <div style="font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#5a6b9a">{{ r.cat }} · {{ r.time }} · {{ r.servings }} porc.</div>
-          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;line-height:1.1;margin:0">{{ r.title }}</h3>
+          <div class="m-rec-meta" style="font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#5a6b9a">{{ r.cat }} · {{ r.time }} · {{ r.servings }} porc.</div>
+          <h3 class="m-rec-title" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;line-height:1.1;margin:0">{{ r.title }}</h3>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <sc-for list="{{ r.tags }}" as="tg" hint-placeholder-count="2">
-              <span style="background:oklch(0.93 0.04 150);color:oklch(0.38 0.08 150);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500">{{ tg }}</span>
+              <span class="m-rec-tag" style="background:oklch(0.93 0.04 150);color:oklch(0.38 0.08 150);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500">{{ tg }}</span>
             </sc-for>
           </div>
         </article>
@@ -319,7 +336,7 @@ body{overflow-x:clip}
     <article onClick="{{ stop }}" style="background:#f8f6f1;border-radius:28px;max-width:920px;width:100%;overflow:hidden;position:relative">
       <button onClick="{{ closeRecipe }}" aria-label="Cerrar" style="position:absolute;top:16px;right:16px;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:#f8f6f1;color:#1e2d5a;font-size:22px;cursor:pointer">✕</button>
       <div class="m-modal-img" style="height:360px;position:relative;background:#dfe6f1">
-        <image-slot id="rec-{{ sel.id }}" shape="rect" src="assets/rec-{{ sel.id }}.jpg" placeholder="Foto: {{ sel.title }}"></image-slot>
+        <img src="assets/rec-{{ sel.id }}.jpg" alt="{{ sel.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
       </div>
       <div class="m-modal-txt" style="padding:40px clamp(24px,5vw,56px) 56px">
         <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">{{ sel.cat }}</div>
@@ -423,7 +440,7 @@ const RECIPES = [
 const FEATURED_ID = 'budin-banana';
 
 class Component extends DCLogic {
-  state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null };
+  state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null, menu: false };
   componentDidMount() { this.startTimer(); }
   componentWillUnmount() { clearInterval(this.timer); }
   startTimer() {
@@ -462,6 +479,13 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
       .then(() => (d.fonts ? d.fonts.ready : 0)).then(() => setTimeout(() => { f.contentWindow.focus(); f.contentWindow.print(); }, 150)); };
     if (d.readyState === 'complete') go(); else f.onload = go;
   }
+  heroTouchStart(e) { const t = e.touches[0]; this.touch = { x: t.clientX, y: t.clientY }; }
+  heroTouchEnd(e) {
+    if (!this.touch) return;
+    const t = e.changedTouches[0], dx = t.clientX - this.touch.x, dy = t.clientY - this.touch.y;
+    this.touch = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) this.go(this.state.slide + (dx < 0 ? 1 : -1));
+  }
   go(i) { this.setState({ slide: (i + SLIDES.length) % SLIDES.length }); this.startTimer(); }
   renderVals() {
     const st = this.state;
@@ -489,6 +513,12 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
         dotW: i === st.slide ? '32px' : '8px', dotBg: i === st.slide ? '#fff' : 'rgba(255,255,255,0.5)', go: () => this.go(i) })),
       prevSlide: () => this.go(st.slide - 1),
       nextSlide: () => this.go(st.slide + 1),
+      heroTouchStart: e => this.heroTouchStart(e),
+      heroTouchEnd: e => this.heroTouchEnd(e),
+      menuCls: st.menu ? 'open' : '',
+      menuIcon: st.menu ? '✕' : '☰',
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      closeMenu: () => this.setState({ menu: false }),
       nutris: NUTRIS,
       prodCats, products, recCats, recTags, recipes,
       noResults: recipes.length === 0,
