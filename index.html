@@ -23,10 +23,7 @@ body{overflow-x:clip}
   .m-burger{display:flex !important}
   .m-logo{width:40px !important;height:40px !important}
   .m-brand{font-size:19px !important}
-  .m-nav{display:none !important;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch !important;gap:0 !important;background:#f8f6f1;border-bottom:1px solid #e1e3e8;padding:4px 16px 16px;font-size:17px !important;box-shadow:0 12px 24px rgba(20,30,62,0.08)}
-  .m-nav.open{display:flex !important}
-  .m-nav a{padding:14px 4px;border-bottom:1px solid #e1e3e8}
-  .m-nav .m-cta{margin-top:12px;text-align:center;border-bottom:0;padding:14px 18px !important}
+  .m-nav{display:none !important}
   .m-hero{height:72vh !important;min-height:440px !important}
   .m-hero-text{padding:0 16px 84px !important}
   .m-kicker{font-size:12px !important;margin-bottom:10px !important}
@@ -60,8 +57,9 @@ body{overflow-x:clip}
   .m-cart-add{width:38px !important;height:38px !important}
   .m-cart-add img{width:18px !important;height:18px !important}
   .m-cart-fab{right:16px !important;bottom:16px !important;width:56px !important;height:56px !important}
-  .m-cart-panel{max-width:none !important}
+  .m-cart-panel{width:88% !important;border-radius:22px 0 0 22px}
   .m-cart-pad{padding-left:16px !important;padding-right:16px !important}
+  .m-cart-panel h2{font-size:26px !important}
   .m-prod-tag{top:8px !important;left:8px !important;font-size:11px !important;padding:4px 9px !important}
   .m-chips{flex-wrap:nowrap !important;overflow-x:auto;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .m-chips::-webkit-scrollbar{display:none}
@@ -87,7 +85,12 @@ body{overflow-x:clip}
   .m-prods,.m-recs{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
 }
 @keyframes m-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.m-marquee-track{animation:none}}
+@keyframes m-drawer-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes m-fade-in{from{opacity:0}to{opacity:1}}
+.m-drawer-bg{animation:m-fade-in 200ms ease-out}
+.m-drawer{animation:m-drawer-in 260ms cubic-bezier(.2,.8,.2,1)}
+@media (min-width:721px){.m-menu-bg{display:none !important}}
+@media (prefers-reduced-motion:reduce){.m-marquee-track,.m-drawer-bg,.m-drawer{animation:none}}
 </style>
 </helmet>
 
@@ -99,8 +102,8 @@ body{overflow-x:clip}
       <img class="m-logo" src="assets/logo-circular.png" alt="Entre dos nutris" style="width:52px;height:52px;object-fit:cover;object-position:center;border-radius:50%;display:block">
       <span class="m-brand" style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.2px">entre dos nutris</span>
     </a>
-    <button class="m-burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;width:44px;height:44px;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:20px;cursor:pointer;align-items:center;justify-content:center;font-family:inherit">{{ menuIcon }}</button>
-    <nav class="m-nav {{ menuCls }}" onClick="{{ closeMenu }}" style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
+    <button class="m-burger" onClick="{{ toggleMenu }}" aria-label="Abrir menú" style="display:none;width:44px;height:44px;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:20px;cursor:pointer;align-items:center;justify-content:center;font-family:inherit">☰</button>
+    <nav class="m-nav" style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
       <a href="#nosotras">Nosotras</a>
       <a href="#turnos">Turnos</a>
       <a href="#productos">Productos</a>
@@ -165,7 +168,7 @@ body{overflow-x:clip}
         <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Turnos</div>
         <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Elegí tu nutri y reservá tu lugar</h2>
       </div>
-      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Cada una maneja su propia agenda. El botón te lleva directo al calendario de la nutri que elijas.</p>
+      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Cada una maneja su propia agenda. Escribile por WhatsApp a la nutri que elijas para coordinar tu turno.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:28px">
       <sc-for list="{{ nutris }}" as="n" hint-placeholder-count="2">
@@ -202,7 +205,7 @@ body{overflow-x:clip}
               </div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:auto">
-              <a href="{{ n.agenda }}" target="_blank" rel="noopener" style="flex:1 1 200px;text-align:center;background:#1e2d5a;color:#f8f6f1;padding:16px 22px;border-radius:999px;font-weight:500;font-size:16px">Sacar turno con {{ n.short }}</a>
+              <span style="flex:1 1 200px;text-align:center;background:#1e2d5a;color:#f8f6f1;padding:16px 22px;border-radius:999px;font-weight:500;font-size:16px">Sacar turno con {{ n.short }}</span>
               <a href="{{ n.wa }}" target="_blank" rel="noopener" style="flex:1 1 160px;text-align:center;border:1px solid #1e2d5a;padding:15px 22px;border-radius:999px;font-weight:500;font-size:16px">{{ n.phone }}</a>
             </div>
           </div>
@@ -240,7 +243,7 @@ body{overflow-x:clip}
     </div>
     <div class="m-prods" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:28px">
       <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
-        <article style="display:flex;flex-direction:column;gap:14px">
+        <article style="display:flex;flex-direction:column;gap:14px;height:100%">
           <div style="aspect-ratio:1/1;background:#eceae3;border-radius:22px;overflow:hidden;position:relative">
             <img src="assets/prod-{{ p.id }}.jpg" alt="{{ p.name }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
             <span class="m-prod-tag" style="position:absolute;top:14px;left:14px;background:#f8f6f1;padding:6px 12px;border-radius:999px;font-size:13px;pointer-events:none">{{ p.cat }}</span>
@@ -250,7 +253,7 @@ body{overflow-x:clip}
             <span class="m-prod-price" style="font-family:'DM Serif Display',serif;font-size:22px;white-space:nowrap">{{ p.price }}</span>
           </div>
           <div style="font-size:15px;color:#5a6b9a;margin-top:-8px">{{ p.size }}</div>
-          <div class="m-prod-actions" style="display:flex;gap:8px;align-items:stretch">
+          <div class="m-prod-actions" style="display:flex;gap:8px;align-items:stretch;margin-top:auto">
             <a class="m-prod-btn" href="{{ p.wa }}" target="_blank" rel="noopener" style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1"><span class="m-wa-full">Pedir por&nbsp;</span>WhatsApp</a>
             <button class="m-cart-add" onClick="{{ p.add }}" aria-label="Agregar {{ p.name }} al carrito" title="Agregar al carrito" style="position:relative;flex:0 0 auto;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:#1e2d5a;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#3d5594">
               <img src="assets/carrito.svg" alt="" style="width:22px;height:22px;display:block">
@@ -299,13 +302,13 @@ body{overflow-x:clip}
 
     <div class="m-recs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:32px">
       <sc-for list="{{ recipes }}" as="r" hint-placeholder-count="6">
-        <article onClick="{{ r.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px">
+        <article onClick="{{ r.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px;height:100%">
           <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#dfe6f1;position:relative">
             <img src="assets/rec-{{ r.id }}.jpg" alt="{{ r.title }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
           </div>
           <div class="m-rec-meta" style="font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#5a6b9a">{{ r.cat }} · {{ r.time }} · {{ r.servings }} porc.</div>
           <h3 class="m-rec-title" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;line-height:1.1;margin:0">{{ r.title }}</h3>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto">
             <sc-for list="{{ r.tags }}" as="tg" hint-placeholder-count="2">
               <span class="m-rec-tag" style="background:oklch(0.93 0.04 150);color:oklch(0.38 0.08 150);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500">{{ tg }}</span>
             </sc-for>
@@ -385,6 +388,30 @@ body{overflow-x:clip}
   </div>
 </sc-if>
 
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div class="m-drawer-bg m-menu-bg" onClick="{{ closeMenu }}" style="position:fixed;inset:0;z-index:120;background:rgba(20,30,62,0.55);display:flex;justify-content:flex-end">
+    <aside class="m-drawer" onClick="{{ stop }}" role="dialog" aria-label="Menú" style="background:#f8f6f1;width:78%;max-width:320px;height:100%;display:flex;flex-direction:column;border-radius:22px 0 0 22px;box-shadow:-12px 0 32px rgba(20,30,62,0.18);overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 16px 16px 20px;border-bottom:1px solid #e1e3e8">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="assets/logo-circular.png" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:50%;display:block">
+          <span style="font-family:'DM Serif Display',serif;font-size:19px">entre dos nutris</span>
+        </div>
+        <button onClick="{{ closeMenu }}" aria-label="Cerrar menú" style="width:40px;height:40px;flex:0 0 auto;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:16px;cursor:pointer;font-family:inherit">✕</button>
+      </div>
+      <nav style="display:flex;flex-direction:column;padding:8px 20px;font-size:18px;font-weight:500">
+        <a href="#nosotras" onClick="{{ closeMenu }}" style="padding:15px 0;border-bottom:1px solid #e1e3e8">Nosotras</a>
+        <a href="#turnos" onClick="{{ closeMenu }}" style="padding:15px 0;border-bottom:1px solid #e1e3e8">Turnos</a>
+        <a href="#productos" onClick="{{ closeMenu }}" style="padding:15px 0;border-bottom:1px solid #e1e3e8">Productos</a>
+        <a href="#recetario" onClick="{{ closeMenu }}" style="padding:15px 0;border-bottom:1px solid #e1e3e8">Recetario</a>
+      </nav>
+      <div style="padding:16px 20px 24px;margin-top:auto;display:grid;gap:14px">
+        <a href="#turnos" onClick="{{ closeMenu }}" style="text-align:center;background:#1e2d5a;color:#f8f6f1;padding:14px 18px;border-radius:999px;font-weight:500;font-size:16px">Sacá tu turno</a>
+        <a href="https://www.instagram.com/entredosnutris_/" target="_blank" rel="noopener" style="text-align:center;font-size:15px;color:#5a6b9a">@entredosnutris_</a>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
 <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
   <button class="m-cart-fab" onClick="{{ openCart }}" aria-label="Ver el carrito ({{ cartCount }})" style="position:fixed;right:24px;bottom:24px;z-index:90;width:64px;height:64px;padding:0;border:0;border-radius:50%;background:#1e2d5a;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(20,30,62,0.28)" style-hover="background:#3d5594">
     <img src="assets/carrito.svg" alt="" style="width:28px;height:28px;display:block">
@@ -393,8 +420,8 @@ body{overflow-x:clip}
 </sc-if>
 
 <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeCart }}" style="position:fixed;inset:0;z-index:110;background:rgba(20,30,62,0.55);display:flex;justify-content:flex-end">
-    <aside class="m-cart-panel" onClick="{{ stop }}" role="dialog" aria-label="Tu pedido" style="background:#f8f6f1;width:100%;max-width:440px;height:100%;display:flex;flex-direction:column;box-shadow:-12px 0 32px rgba(20,30,62,0.18)">
+  <div class="m-drawer-bg" onClick="{{ closeCart }}" style="position:fixed;inset:0;z-index:110;background:rgba(20,30,62,0.55);display:flex;justify-content:flex-end">
+    <aside class="m-cart-panel m-drawer" onClick="{{ stop }}" role="dialog" aria-label="Tu pedido" style="background:#f8f6f1;width:100%;max-width:440px;height:100%;display:flex;flex-direction:column;box-shadow:-12px 0 32px rgba(20,30,62,0.18)">
       <div class="m-cart-pad" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid #e1e3e8">
         <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:30px;margin:0">Tu pedido</h2>
         <button onClick="{{ closeCart }}" aria-label="Cerrar el carrito" style="width:44px;height:44px;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:18px;cursor:pointer;font-family:inherit">✕</button>
@@ -453,12 +480,12 @@ const NUTRIS = [
     bio: '¿Y si empezás por tu alimentación? Mi objetivo es acompañarte a mejorarla con un plan hecho a tu medida.',
     hours: [{ day: 'CARS · Hipólito Yrigoyen 1071', time: 'Martes y jueves' }, { day: 'Consulta online', time: 'Pedí turno por WhatsApp' }],
     place: 'Presencial y online', specs: 'Plan personalizado (adaptado a tus necesidades y objetivos), flexible (respeta tus gustos, preferencias y rutina) y sostenible (cambios que puedas mantener en el tiempo)',
-    agenda: 'https://calendly.com/', phone: '3585 16-5160', wa: 'https://wa.me/5493585165160' },
+    phone: '3585 16-5160', wa: 'https://wa.me/5493585165160' },
   { short: 'Marti', name: 'Martina Spernanzoni', role: 'Lic. en Nutrición', mp: 'M.P. 5351 · Universidad de Mendoza', photo: 'assets/martina.png', pos: '50% 35%',
     bio: 'Te acompaño a construir hábitos saludables, reales y sostenibles, adaptados a vos.',
     hours: [{ day: '@daphne_estetica_integral', time: 'Dr. Carlos Gaudard 967' }, { day: '@masquelindas1', time: 'San Martín 442' }, { day: 'Consulta online', time: 'Pedí turno por WhatsApp' }],
     place: 'Presencial y online · atiende obras sociales y prepagas (consultá por tu cobertura)', specs: 'Organización de tus comidas, educación alimentaria y cambio de hábitos, evaluación de la composición corporal, guías alimentarias personalizadas',
-    agenda: 'https://calendly.com/', phone: '3584 36-6160', wa: 'https://wa.me/5493584366160' }
+    phone: '3584 36-6160', wa: 'https://wa.me/5493584366160' }
 ];
 const PRODUCTS = [
   { id: 'granola', name: 'Granola casera con almendras', cat: 'Granolas', price: '$6.500', size: 'Bolsa 500 g' },
@@ -526,10 +553,17 @@ class Component extends DCLogic {
   state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null, menu: false, cart: loadCart(), cartOpen: false };
   componentDidMount() {
     this.startTimer();
-    this.onKey = e => { if (e.key === 'Escape' && this.state.cartOpen) this.setState({ cartOpen: false }); };
+    this.onKey = e => { if (e.key === 'Escape' && (this.state.cartOpen || this.state.menu)) this.panel({ cartOpen: false, menu: false }); };
     document.addEventListener('keydown', this.onKey);
   }
-  componentWillUnmount() { clearInterval(this.timer); document.removeEventListener('keydown', this.onKey); }
+  componentWillUnmount() { clearInterval(this.timer); document.removeEventListener('keydown', this.onKey); this.lockScroll(false); }
+  // Menú y carrito: mientras uno está abierto, la página de atrás no scrollea.
+  panel(p) {
+    this.setState(p);
+    const next = { ...this.state, ...p };
+    this.lockScroll(!!(next.cartOpen || next.menu));
+  }
+  lockScroll(on) { document.documentElement.style.overflow = on ? 'hidden' : ''; }
   // d = +1 / -1; null = sacar el producto entero.
   changeQty(id, d) {
     this.setState(s => {
@@ -622,18 +656,17 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
       nextSlide: () => this.go(st.slide + 1),
       heroTouchStart: e => this.heroTouchStart(e),
       heroTouchEnd: e => this.heroTouchEnd(e),
-      menuCls: st.menu ? 'open' : '',
-      menuIcon: st.menu ? '✕' : '☰',
-      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
-      closeMenu: () => this.setState({ menu: false }),
+      menuOpen: st.menu,
+      toggleMenu: () => this.panel({ menu: !st.menu, cartOpen: false }),
+      closeMenu: () => this.panel({ menu: false }),
       nutris: NUTRIS,
       prodCats, products, recCats, recTags, recipes,
       cartItems, cartCount, cartTotal,
       hasCart: cartCount > 0, cartEmpty: cartCount === 0,
       cartWa: `https://wa.me/${owner}?text=${encodeURIComponent(cartMsg)}`,
       cartOpen: st.cartOpen,
-      openCart: () => this.setState({ cartOpen: true }),
-      closeCart: () => this.setState({ cartOpen: false }),
+      openCart: () => this.panel({ cartOpen: true, menu: false }),
+      closeCart: () => this.panel({ cartOpen: false }),
       clearCart: () => { saveCart({}); this.setState({ cart: {} }); },
       noResults: recipes.length === 0,
       clearFilters: () => this.setState({ recCat: 'Todas', tag: null, query: '' }),
