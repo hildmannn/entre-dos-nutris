@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#f8f6f1;color:#1e2d5a;font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1e2d5a;text-decoration:none}
+a:hover{color:#3d5594}
+*{box-sizing:border-box}
+input::placeholder{color:#7d88a6}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#f8f6f1">
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(248,246,241,0.94);backdrop-filter:blur(8px);border-bottom:1px solid #e1e3e8">
+  <div style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <a href="#inicio" style="display:flex;align-items:center;gap:12px">
+      <img src="assets/logo-circular.png" alt="Entre dos nutris" style="width:52px;height:52px;object-fit:cover;object-position:center;border-radius:50%;display:block">
+      <span style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.2px">entre dos nutris</span>
+    </a>
+    <nav style="display:flex;gap:24px;flex-wrap:wrap;font-size:15px;font-weight:500;align-items:center">
+      <a href="#nosotras">Nosotras</a>
+      <a href="#turnos">Turnos</a>
+      <a href="#productos">Productos</a>
+      <a href="#recetario">Recetario</a>
+      <a href="#turnos" style="background:#1e2d5a;color:#f8f6f1;padding:10px 18px;border-radius:999px">Sacá tu turno</a>
+    </nav>
+  </div>
+</header>
+
+<section id="inicio" data-screen-label="Inicio" style="position:relative;height:min(82vh,720px);min-height:480px;overflow:hidden;background:#dfe6f1">
+  <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
+    <div style="position:absolute;inset:0;opacity:{{ s.opacity }};transition:opacity 900ms ease;pointer-events:{{ s.pe }}">
+      <div style="position:absolute;inset:0">
+        <image-slot id="hero-{{ s.id }}" shape="rect" src="assets/slide-{{ s.id }}.jpg" placeholder="{{ s.ph }}"></image-slot>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(to top, rgba(20,30,62,0.78), rgba(20,30,62,0));pointer-events:none"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;pointer-events:none">
+        <div style="max-width:1240px;margin:0 auto;padding:0 24px 88px">
+          <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#dfe6f1;margin-bottom:14px">{{ s.kicker }}</div>
+          <h1 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(40px,6.4vw,84px);line-height:1;margin:0;color:#fff;max-width:900px;text-wrap:balance">{{ s.title }}</h1>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+  <div style="position:absolute;left:0;right:0;bottom:32px">
+    <div style="max-width:1240px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div style="display:flex;gap:8px">
+        <sc-for list="{{ slides }}" as="s" hint-placeholder-count="4">
+          <button onClick="{{ s.go }}" aria-label="Ir a la diapositiva" style="width:{{ s.dotW }};height:8px;border-radius:8px;border:0;padding:0;cursor:pointer;background:{{ s.dotBg }};transition:all 300ms"></button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onClick="{{ prevSlide }}" aria-label="Anterior" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">←</button>
+        <button onClick="{{ nextSlide }}" aria-label="Siguiente" style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:20px;cursor:pointer;font-family:inherit">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotras" data-screen-label="Nosotras" style="padding:112px 24px">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:center">
+    <div style="position:relative">
+      <img src="assets/jose-y-martina.png" alt="Jose y Martina" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:28px;display:block">
+      <div style="position:absolute;right:-12px;bottom:28px;background:#1e2d5a;color:#f8f6f1;padding:14px 20px;border-radius:16px;font-family:'DM Serif Display',serif;font-size:20px;transform:rotate(-3deg)">Río Cuarto, Córdoba</div>
+    </div>
+    <div>
+      <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Sobre nosotras</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 28px;text-wrap:balance">Dos nutris, un mismo plato <span style="font-style:italic;color:#5a6b9a">(y mucho amor en cada receta)</span></h2>
+      <p style="font-size:19px;line-height:1.6;margin:0 0 18px;color:#3b4870;text-wrap:pretty">Somos Jose y Martina, licenciadas en Nutrición por la Universidad de Mendoza. Nos juntamos para hacer algo que nos encanta: demostrar que comer sano puede ser rico, simple y sin culpa.</p>
+      <p style="font-size:19px;line-height:1.6;margin:0 0 32px;color:#3b4870;text-wrap:pretty">Compartimos este espacio, las recetas y los productos, pero cada una atiende por su cuenta. Elegí con quién te sentís más cómoda y sacá turno directo con ella.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <span style="border:1px solid #c9d1e3;border-radius:999px;padding:10px 18px;font-size:15px">Online y presencial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="turnos" data-screen-label="Turnos" style="padding:112px 24px;background:#dfe6f1">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:56px">
+      <div>
+        <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Turnos</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Elegí tu nutri y reservá tu lugar</h2>
+      </div>
+      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Cada una maneja su propia agenda. El botón te lleva directo al calendario de la nutri que elijas.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:28px">
+      <sc-for list="{{ nutris }}" as="n" hint-placeholder-count="2">
+        <article style="background:#f8f6f1;border-radius:28px;overflow:hidden;display:flex;flex-direction:column">
+          <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:0">
+            <img src="{{ n.photo }}" alt="{{ n.name }}" style="width:100%;height:100%;min-height:260px;object-fit:cover;object-position:{{ n.pos }};display:block">
+            <div style="padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px">
+              <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a">{{ n.role }}</div>
+              <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:38px;line-height:1;margin:0">{{ n.name }}</h3>
+              <div style="font-size:15px;color:#3b4870">{{ n.mp }}</div>
+              <p style="font-size:16px;line-height:1.5;margin:8px 0 0;color:#3b4870;text-wrap:pretty">{{ n.bio }}</p>
+            </div>
+          </div>
+          <div style="padding:28px;display:grid;gap:24px;border-top:1px solid #e1e3e8;flex:1">
+            <div>
+              <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">Horarios</div>
+              <div style="display:grid;gap:0">
+                <sc-for list="{{ n.hours }}" as="h" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed #d4d9e4;font-size:16px">
+                    <span style="font-weight:500">{{ h.day }}</span>
+                    <span style="color:#3b4870;text-align:right">{{ h.time }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;font-size:15px;line-height:1.45">
+              <div>
+                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Consultorio</div>
+                <div>{{ n.place }}</div>
+              </div>
+              <div>
+                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Especialidades</div>
+                <div>{{ n.specs }}</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:auto">
+              <a href="{{ n.agenda }}" target="_blank" rel="noopener" style="flex:1 1 200px;text-align:center;background:#1e2d5a;color:#f8f6f1;padding:16px 22px;border-radius:999px;font-weight:500;font-size:16px">Sacar turno con {{ n.short }}</a>
+              <a href="{{ n.wa }}" target="_blank" rel="noopener" style="flex:1 1 160px;text-align:center;border:1px solid #1e2d5a;padding:15px 22px;border-radius:999px;font-weight:500;font-size:16px">{{ n.phone }}</a>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Frases" style="background:#1e2d5a;color:#f8f6f1;padding:28px 0;overflow:hidden">
+  <div style="display:flex;gap:48px;white-space:nowrap;font-family:'DM Serif Display',serif;font-size:30px;font-style:italic;justify-content:center;flex-wrap:wrap;padding:0 24px">
+    <span>Comé colores</span><span style="color:#8fa3d4">·</span>
+    <span>Tomá agüita</span><span style="color:#8fa3d4">·</span>
+    <span>El postre también nutre el alma</span><span style="color:#8fa3d4">·</span>
+    <span>Sin culpa, con evidencia</span>
+  </div>
+</section>
+
+<section id="productos" data-screen-label="Productos" style="padding:112px 24px">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+      <div>
+        <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">La despensa</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Productos naturales que usamos de verdad</h2>
+      </div>
+      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Elegí lo que quieras y pedilo por WhatsApp. Retiro en Río Cuarto o envío a coordinar.</p>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px">
+      <sc-for list="{{ prodCats }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.pick }}" style="border:1px solid #1e2d5a;background:{{ c.bg }};color:{{ c.fg }};padding:10px 18px;border-radius:999px;font-family:inherit;font-size:15px;cursor:pointer">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:28px">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <article style="display:flex;flex-direction:column;gap:14px">
+          <div style="aspect-ratio:1/1;background:#eceae3;border-radius:22px;overflow:hidden;position:relative">
+            <image-slot id="prod-{{ p.id }}" shape="rounded" src="assets/prod-{{ p.id }}.jpg" radius="22" placeholder="Foto: {{ p.name }}"></image-slot>
+            <span style="position:absolute;top:14px;left:14px;background:#f8f6f1;padding:6px 12px;border-radius:999px;font-size:13px;pointer-events:none">{{ p.cat }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">
+            <h3 style="font-size:19px;font-weight:500;margin:0;line-height:1.25">{{ p.name }}</h3>
+            <span style="font-family:'DM Serif Display',serif;font-size:22px;white-space:nowrap">{{ p.price }}</span>
+          </div>
+          <div style="font-size:15px;color:#5a6b9a;margin-top:-8px">{{ p.size }}</div>
+          <a href="{{ p.wa }}" target="_blank" rel="noopener" style="text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1">Pedir por WhatsApp</a>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="recetario" data-screen-label="Recetario" style="padding:112px 24px;background:#eef1f6">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">Recetario</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0 0 48px;max-width:760px;text-wrap:balance">Recetas nuevas todas las semanas <span style="font-style:italic;color:#5a6b9a">(probadas por nosotras, obvio)</span></h2>
+
+    <article onClick="{{ openFeatured }}" style="cursor:pointer;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:#1e2d5a;color:#f8f6f1;border-radius:28px;overflow:hidden;margin-bottom:64px">
+      <div style="min-height:360px;position:relative">
+        <image-slot id="rec-{{ featured.id }}" shape="rect" src="assets/rec-{{ featured.id }}.jpg" placeholder="Foto: {{ featured.title }}"></image-slot>
+      </div>
+      <div style="padding:44px;display:flex;flex-direction:column;justify-content:center;gap:18px">
+        <span style="align-self:flex-start;background:#dfe6f1;color:#1e2d5a;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase">Receta de la semana</span>
+        <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(32px,3.6vw,48px);line-height:1.05;margin:0">{{ featured.title }}</h3>
+        <p style="font-size:18px;line-height:1.55;margin:0;color:#d3dbec;text-wrap:pretty">{{ featured.desc }}</p>
+        <div style="display:flex;gap:24px;font-size:16px;color:#d3dbec;flex-wrap:wrap">
+          <span>⏱ {{ featured.time }}</span><span>Porciones: {{ featured.servings }}</span>
+        </div>
+        <span style="align-self:flex-start;border-bottom:1px solid #f8f6f1;padding-bottom:2px;font-weight:500;margin-top:8px">Ver receta completa →</span>
+      </div>
+    </article>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:20px">
+      <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Buscá: avena, palta, budín..." style="flex:1 1 280px;font-family:inherit;font-size:16px;padding:14px 20px;border-radius:999px;border:1px solid #c9d1e3;background:#fff;color:#1e2d5a;outline:none">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ recCats }}" as="c" hint-placeholder-count="5">
+          <button onClick="{{ c.pick }}" style="border:1px solid #1e2d5a;background:{{ c.bg }};color:{{ c.fg }};padding:10px 18px;border-radius:999px;font-family:inherit;font-size:15px;cursor:pointer">{{ c.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px">
+      <sc-for list="{{ recTags }}" as="t" hint-placeholder-count="5">
+        <button onClick="{{ t.pick }}" style="border:1px dashed #5a6b9a;background:{{ t.bg }};color:{{ t.fg }};padding:7px 14px;border-radius:999px;font-family:inherit;font-size:14px;cursor:pointer">{{ t.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:32px">
+      <sc-for list="{{ recipes }}" as="r" hint-placeholder-count="6">
+        <article onClick="{{ r.open }}" style="cursor:pointer;display:flex;flex-direction:column;gap:12px">
+          <div style="aspect-ratio:4/3;border-radius:22px;overflow:hidden;background:#dfe6f1;position:relative">
+            <image-slot id="rec-{{ r.id }}" shape="rounded" src="assets/rec-{{ r.id }}.jpg" radius="22" placeholder="Foto: {{ r.title }}"></image-slot>
+          </div>
+          <div style="font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#5a6b9a">{{ r.cat }} · {{ r.time }} · {{ r.servings }} porc.</div>
+          <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;line-height:1.1;margin:0">{{ r.title }}</h3>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ r.tags }}" as="tg" hint-placeholder-count="2">
+              <span style="background:oklch(0.93 0.04 150);color:oklch(0.38 0.08 150);padding:5px 11px;border-radius:999px;font-size:13px;font-weight:500">{{ tg }}</span>
+            </sc-for>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+    <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;padding:64px 0;font-size:19px;color:#3b4870">No encontramos recetas con eso. <button onClick="{{ clearFilters }}" style="background:none;border:0;border-bottom:1px solid #1e2d5a;color:#1e2d5a;font-family:inherit;font-size:19px;cursor:pointer;padding:0">Limpiar filtros</button></div>
+    </sc-if>
+  </div>
+</section>
+
+<footer style="background:#1e2d5a;color:#dfe6f1;padding:72px 24px 40px">
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <img src="assets/logo-circular.png" alt="Entre dos nutris" style="width:96px;height:96px;object-fit:cover;border-radius:50%;display:block">
+      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#f8f6f1">entre dos nutris</div>
+      <div style="font-size:15px">Nutrición basada en la evidencia · Río Cuarto, Córdoba</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:16px">
+      <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#8fa3d4;margin-bottom:6px">Lic. Jose Koch</div>
+      <a href="https://wa.me/5493585165160" style="color:#f8f6f1">3585 16-5160</a>
+      <a href="#turnos" style="color:#f8f6f1">Sacar turno</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:16px">
+      <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#8fa3d4;margin-bottom:6px">Lic. Martina Spernanzoni</div>
+      <a href="https://wa.me/5493584366160" style="color:#f8f6f1">3584 36-6160</a>
+      <a href="#turnos" style="color:#f8f6f1">Sacar turno</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:16px">
+      <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#8fa3d4;margin-bottom:6px">Seguinos</div>
+      <a href="https://instagram.com/entredosnutris" target="_blank" rel="noopener" style="color:#f8f6f1">@entredosnutris</a>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:56px auto 0;padding-top:24px;border-top:1px solid #3a4a7a;font-size:14px;color:#8fa3d4">© 2026 Entre dos nutris</div>
+</footer>
+
+<sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeRecipe }}" style="position:fixed;inset:0;z-index:100;background:rgba(20,30,62,0.55);display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;padding:40px 16px">
+    <article onClick="{{ stop }}" style="background:#f8f6f1;border-radius:28px;max-width:920px;width:100%;overflow:hidden;position:relative">
+      <button onClick="{{ closeRecipe }}" aria-label="Cerrar" style="position:absolute;top:16px;right:16px;z-index:2;width:48px;height:48px;border-radius:50%;border:0;background:#f8f6f1;color:#1e2d5a;font-size:22px;cursor:pointer">✕</button>
+      <div style="height:360px;position:relative;background:#dfe6f1">
+        <image-slot id="rec-{{ sel.id }}" shape="rect" src="assets/rec-{{ sel.id }}.jpg" placeholder="Foto: {{ sel.title }}"></image-slot>
+      </div>
+      <div style="padding:40px clamp(24px,5vw,56px) 56px">
+        <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">{{ sel.cat }}</div>
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.4vw,54px);line-height:1.05;margin:0 0 16px">{{ sel.title }}</h2>
+        <p style="font-size:18px;line-height:1.55;margin:0 0 24px;color:#3b4870;text-wrap:pretty">{{ sel.desc }}</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;align-items:center">
+          <button onClick="{{ downloadPdf }}" style="background:#1e2d5a;color:#f8f6f1;border:0;padding:9px 16px;border-radius:999px;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px" style-hover="background:#3d5594">↓ Descargar PDF</button>
+          <span style="border:1px solid #c9d1e3;padding:8px 14px;border-radius:999px;font-size:15px">⏱ {{ sel.time }}</span>
+          <span style="border:1px solid #c9d1e3;padding:8px 14px;border-radius:999px;font-size:15px">{{ sel.servings }} porciones</span>
+          <sc-for list="{{ sel.tags }}" as="tg" hint-placeholder-count="2">
+            <span style="background:oklch(0.93 0.04 150);color:oklch(0.38 0.08 150);padding:8px 14px;border-radius:999px;font-size:15px;font-weight:500">{{ tg }}</span>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:40px">
+          <div>
+            <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;margin:0 0 16px">Ingredientes</h3>
+            <sc-for list="{{ sel.ingredients }}" as="ing" hint-placeholder-count="5">
+              <div style="padding:10px 0;border-bottom:1px dashed #d4d9e4;font-size:16px;line-height:1.4">{{ ing }}</div>
+            </sc-for>
+          </div>
+          <div>
+            <h3 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:28px;margin:0 0 16px">Paso a paso</h3>
+            <sc-for list="{{ sel.steps }}" as="st" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:36px 1fr;gap:12px;padding:10px 0;font-size:16px;line-height:1.5">
+                <span style="width:32px;height:32px;border-radius:50%;background:#1e2d5a;color:#f8f6f1;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600">{{ st.n }}</span>
+                <span>{{ st.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Slider&quot;},&quot;pedidosA&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Martina&quot;,&quot;Jose&quot;],&quot;default&quot;:&quot;Martina&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Productos&quot;}}">
+const SLIDES = [
+  { id: 'bowl', kicker: 'Entre dos nutris', title: 'Comer rico y sano no es un mito. Lo comprobamos todos los días.', ph: 'Foto: bowl colorido con verduras' },
+  { id: 'desayuno', kicker: 'Desayunos que abrazan', title: 'Avena, frutas y un mate. El combo ganador.', ph: 'Foto: desayuno con avena y frutas' },
+  { id: 'verde', kicker: 'Sin dietas mágicas', title: 'Más colores en el plato, menos culpa en la cabeza.', ph: 'Foto: ensalada / plato verde' },
+  { id: 'dulce', kicker: 'Sí, hay postre', title: 'El chocolate también entra en un plan. Te enseñamos cómo.', ph: 'Foto: postre saludable' }
+];
+const NUTRIS = [
+  { short: 'Jose', name: 'Jose Koch', role: 'Lic. en Nutrición', mp: 'M.P. 0000 · Universidad de Mendoza', photo: 'assets/jose.png', pos: '62% 30%',
+    bio: 'Fan de las meriendas armadas y de los planes que se adaptan a tu rutina (y no al revés).',
+    hours: [{ day: 'Lunes y miércoles', time: '9:00 a 13:00' }, { day: 'Jueves', time: '15:00 a 20:00' }, { day: 'Online', time: 'Martes 17:00 a 20:00' }],
+    place: 'Consultorio en el centro de Río Cuarto · también online', specs: 'Nutrición deportiva, descenso de peso, alimentación vegetariana',
+    agenda: 'https://calendly.com/', phone: '3585 16-5160', wa: 'https://wa.me/5493585165160' },
+  { short: 'Marti', name: 'Martina Spernanzoni', role: 'Lic. en Nutrición', mp: 'M.P. 0000 · Universidad de Mendoza', photo: 'assets/martina.png', pos: '50% 35%',
+    bio: 'Defensora oficial del mate con algo rico. Cree que ningún alimento es enemigo.',
+    hours: [{ day: 'Martes y jueves', time: '8:30 a 12:30' }, { day: 'Viernes', time: '14:00 a 19:00' }, { day: 'Online', time: 'Lunes 18:00 a 21:00' }],
+    place: 'Consultorio en barrio Banda Norte, Río Cuarto · también online', specs: 'Relación con la comida, salud digestiva, alimentación familiar',
+    agenda: 'https://calendly.com/', phone: '3584 36-6160', wa: 'https://wa.me/5493584366160' }
+];
+const PRODUCTS = [
+  { id: 'granola', name: 'Granola casera con almendras', cat: 'Granolas', price: '$6.500', size: 'Bolsa 500 g' },
+  { id: 'mix', name: 'Mix de frutos secos', cat: 'Frutos secos', price: '$7.200', size: 'Bolsa 400 g' },
+  { id: 'harina-almendra', name: 'Harina de almendras', cat: 'Harinas', price: '$8.900', size: '500 g' },
+  { id: 'avena', name: 'Avena arrollada fina', cat: 'Granolas', price: '$2.300', size: '1 kg' },
+  { id: 'mani', name: 'Mantequilla de maní natural', cat: 'Untables', price: '$4.800', size: 'Frasco 380 g' },
+  { id: 'chia', name: 'Semillas de chía', cat: 'Semillas', price: '$3.100', size: '250 g' },
+  { id: 'premezcla', name: 'Premezcla sin TACC', cat: 'Harinas', price: '$3.900', size: '1 kg' },
+  { id: 'nueces', name: 'Nueces mariposa', cat: 'Frutos secos', price: '$9.400', size: '500 g' }
+];
+const RECIPES = [
+  { id: 'budin-banana', title: 'Budín de banana y avena', cat: 'Dulces', time: '45 min', servings: 8, tags: ['Sin azúcar agregada', 'Vegetariano'],
+    desc: 'El budín que salva todas las meriendas. Húmedo, esponjoso y endulzado solo con banana bien madura.',
+    ingredients: ['3 bananas bien maduras', '2 huevos', '1 y 1/2 taza de avena procesada', '1 cdita de polvo de hornear', '1 cdita de canela', 'Un puñado de nueces picadas'],
+    steps: ['Pisá las bananas con un tenedor hasta hacer un puré.', 'Sumá los huevos y mezclá bien.', 'Agregá la avena, el polvo de hornear y la canela.', 'Incorporá las nueces, volcá en un molde y horneá 35 min a 180°C.'] },
+  { id: 'bowl-quinoa', title: 'Bowl de quinoa, palta y garbanzos', cat: 'Almuerzos', time: '25 min', servings: 2, tags: ['Vegano', 'Sin TACC'],
+    desc: 'Un almuerzo completo para llevar al trabajo o a la facu. Se arma en un rato y dura dos días en la heladera.',
+    ingredients: ['1 taza de quinoa', '1 lata de garbanzos', '1 palta', '1 tomate', 'Hojas verdes a gusto', 'Limón, aceite de oliva y sal'],
+    steps: ['Lavá bien la quinoa y cocinala 15 min en el doble de agua.', 'Escurrí y enjuagá los garbanzos.', 'Cortá la palta y el tomate en cubos.', 'Armá el bowl y condimentá con limón, oliva y sal.'] },
+  { id: 'overnight', title: 'Overnight oats de frutos rojos', cat: 'Desayunos', time: '10 min', servings: 1, tags: ['Vegetariano', 'Alto en fibra'],
+    desc: 'Lo preparás a la noche y a la mañana solo tenés que abrir la heladera. Ideal para los días que vamos a las corridas.',
+    ingredients: ['1/2 taza de avena', '1/2 taza de leche o bebida vegetal', '1 yogur natural', '1 cda de chía', 'Frutos rojos'],
+    steps: ['Mezclá avena, leche, yogur y chía en un frasco.', 'Tapá y llevá a la heladera toda la noche.', 'A la mañana sumá los frutos rojos y listo.'] },
+  { id: 'tortilla-zapallitos', title: 'Tortilla de zapallitos al horno', cat: 'Cenas', time: '35 min', servings: 4, tags: ['Sin TACC', 'Alto en proteínas'],
+    desc: 'Una cena fácil que gusta a toda la familia. Al horno queda dorada y sin necesidad de darla vuelta.',
+    ingredients: ['3 zapallitos', '1 cebolla', '5 huevos', '50 g de queso rallado', 'Sal, pimienta y orégano'],
+    steps: ['Rallá los zapallitos y picá la cebolla.', 'Rehogá la cebolla en una sartén.', 'Batí los huevos con el queso y condimentos, sumá las verduras.', 'Volcá en una fuente aceitada y horneá 25 min a 200°C.'] },
+  { id: 'hummus', title: 'Hummus de remolacha', cat: 'Snacks', time: '15 min', servings: 6, tags: ['Vegano', 'Sin TACC'],
+    desc: 'El hummus de siempre, pero rosa. Para dipear bastones de zanahoria, galletitas o untar en tostadas.',
+    ingredients: ['1 lata de garbanzos', '1 remolacha cocida', '2 cdas de tahini', 'Jugo de 1 limón', '1 diente de ajo', 'Comino y sal'],
+    steps: ['Escurrí los garbanzos y reservá un poco del líquido.', 'Procesá todo junto hasta que quede cremoso.', 'Ajustá la textura con el líquido reservado y servilo con oliva.'] },
+  { id: 'trufas', title: 'Trufas de dátiles y cacao', cat: 'Dulces', time: '20 min', servings: 12, tags: ['Vegano', 'Sin azúcar agregada', 'Sin TACC'],
+    desc: 'Para cuando pinta algo dulce después de comer. Tres ingredientes y nada de horno.',
+    ingredients: ['1 taza de dátiles sin carozo', '1/2 taza de nueces', '2 cdas de cacao amargo', 'Coco rallado para rebozar'],
+    steps: ['Hidratá los dátiles 10 min en agua caliente.', 'Procesalos con las nueces y el cacao.', 'Formá bolitas y pasalas por coco rallado.', 'Llevá a la heladera 30 min antes de comer.'] },
+  { id: 'wok-pollo', title: 'Wok de pollo y vegetales', cat: 'Cenas', time: '30 min', servings: 3, tags: ['Alto en proteínas', 'Sin TACC'],
+    desc: 'Rápido, colorido y con mucho sabor. Usá las verduras que tengas en la heladera.',
+    ingredients: ['400 g de pechuga de pollo', '1 morrón rojo', '1 zanahoria', '1 cebolla de verdeo', 'Brócoli a gusto', 'Salsa de soja sin TACC'],
+    steps: ['Cortá el pollo en tiras y dorarlo en el wok bien caliente.', 'Retiralo y saltá las verduras cortadas en tiras.', 'Volvé a sumar el pollo y la salsa de soja.', 'Cociná 2 min más y serví.'] },
+  { id: 'tostadas', title: 'Tostadas de palta y huevo', cat: 'Desayunos', time: '10 min', servings: 1, tags: ['Vegetariano', 'Alto en proteínas'],
+    desc: 'El desayuno que más nos piden. Saciante, simple y queda lindo en la foto.',
+    ingredients: ['2 rebanadas de pan integral', '1/2 palta', '1 huevo', 'Semillas de sésamo', 'Limón, sal y pimienta'],
+    steps: ['Tostá el pan.', 'Pisá la palta con limón, sal y pimienta.', 'Cociná el huevo a la plancha o poché.', 'Armá la tostada y terminá con semillas.'] }
+];
+const FEATURED_ID = 'budin-banana';
+
+class Component extends DCLogic {
+  state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null };
+  componentDidMount() { this.startTimer(); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  startTimer() {
+    clearInterval(this.timer);
+    if (this.props.heroAutoplay === false) return;
+    this.timer = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % SLIDES.length })), 6000);
+  }
+  printRecipe(r) {
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const abs = p => new URL(p, location.href).href;
+    const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>${esc(r.title)} · Entre dos nutris</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>@page{size:A4;margin:16mm}body{margin:0;font-family:Outfit,sans-serif;color:#1e2d5a;font-size:11.5pt;line-height:1.5}
+h1,h2{font-family:'DM Serif Display',serif;font-weight:400;margin:0}h1{font-size:30pt;line-height:1.05;margin:4px 0 10px}h2{font-size:17pt;margin:0 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #c9d1e3;padding-bottom:10px;margin-bottom:18px}
+.top img{height:40px}.k{font-size:9pt;letter-spacing:1.5px;text-transform:uppercase;color:#5a6b9a}
+.hero{width:100%;height:230px;object-fit:cover;border-radius:12px;margin:14px 0}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}.meta span{border:1px solid #c9d1e3;border-radius:99px;padding:4px 10px;font-size:10pt}
+.cols{display:grid;grid-template-columns:1fr 1.4fr;gap:28px}ul{margin:0;padding:0;list-style:none}li{padding:6px 0;border-bottom:1px dashed #d4d9e4}
+ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:28px;padding-top:10px;border-top:1px solid #c9d1e3;font-size:9.5pt;color:#5a6b9a}</style></head><body>
+<div class="top"><img src="${abs('assets/logo-circular.png')}" style="width:56px;height:56px;object-fit:cover;border-radius:50%"><span class="k">Entre dos nutris · Recetario</span></div>
+<div class="k">${esc(r.cat)}</div><h1>${esc(r.title)}</h1><p style="margin:0">${esc(r.desc)}</p>
+<img class="hero" src="${abs('assets/rec-' + r.id + '.jpg')}">
+<div class="meta"><span>Tiempo: ${esc(r.time)}</span><span>${r.servings} porciones</span>${r.tags.map(t => '<span>' + esc(t) + '</span>').join('')}</div>
+<div class="cols"><div><h2>Ingredientes</h2><ul>${r.ingredients.map(i => '<li>' + esc(i) + '</li>').join('')}</ul></div>
+<div><h2>Paso a paso</h2><ol>${r.steps.map(s => '<li>' + esc(s) + '</li>').join('')}</ol></div></div>
+<div class="foot">Lic. Jose Koch · 3585 16-5160 &nbsp;·&nbsp; Lic. Martina Spernanzoni · 3584 36-6160 &nbsp;·&nbsp; @entredosnutris · Río Cuarto, Córdoba</div>
+</body></html>`;
+    const old = document.getElementById('recipe-print-frame'); if (old) old.remove();
+    const f = document.createElement('iframe');
+    f.id = 'recipe-print-frame';
+    f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+    document.body.appendChild(f);
+    const d = f.contentDocument; d.open(); d.write(html); d.close();
+    const go = () => { const imgs = [...d.images]; Promise.all(imgs.map(i => i.complete ? 0 : new Promise(res => { i.onload = i.onerror = res; })))
+      .then(() => (d.fonts ? d.fonts.ready : 0)).then(() => setTimeout(() => { f.contentWindow.focus(); f.contentWindow.print(); }, 150)); };
+    if (d.readyState === 'complete') go(); else f.onload = go;
+  }
+  go(i) { this.setState({ slide: (i + SLIDES.length) % SLIDES.length }); this.startTimer(); }
+  renderVals() {
+    const st = this.state;
+    const owner = this.props.pedidosA === 'Jose' ? '5493585165160' : '5493584366160';
+    const chip = (active) => ({ bg: active ? '#1e2d5a' : 'transparent', fg: active ? '#f8f6f1' : '#1e2d5a' });
+    const prodCats = ['Todos', ...new Set(PRODUCTS.map(p => p.cat))].map(c => ({ label: c, ...chip(st.prodCat === c), pick: () => this.setState({ prodCat: c }) }));
+    const products = PRODUCTS.filter(p => st.prodCat === 'Todos' || p.cat === st.prodCat).map(p => ({
+      ...p, wa: `https://wa.me/${owner}?text=${encodeURIComponent(`¡Hola! Quiero pedir: ${p.name} (${p.size})`)}`
+    }));
+    const recCats = ['Todas', 'Desayunos', 'Almuerzos', 'Cenas', 'Snacks', 'Dulces'].map(c => ({ label: c, ...chip(st.recCat === c), pick: () => this.setState({ recCat: c }) }));
+    const allTags = [...new Set(RECIPES.flatMap(r => r.tags))];
+    const recTags = allTags.map(t => ({ label: t, bg: st.tag === t ? '#5a6b9a' : 'transparent', fg: st.tag === t ? '#fff' : '#3b4870', pick: () => this.setState(s => ({ tag: s.tag === t ? null : t })) }));
+    const q = st.query.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const recipes = RECIPES.filter(r =>
+      (st.recCat === 'Todas' || r.cat === st.recCat) &&
+      (!st.tag || r.tags.includes(st.tag)) &&
+      (!q || norm(r.title + ' ' + r.desc + ' ' + r.ingredients.join(' ')).includes(q))
+    ).map(r => ({ ...r, open: () => this.setState({ selected: r.id }) }));
+    const featured = RECIPES.find(r => r.id === FEATURED_ID);
+    const selR = RECIPES.find(r => r.id === st.selected);
+    const sel = selR ? { ...selR, steps: selR.steps.map((t, i) => ({ n: i + 1, text: t })) } : { tags: [], ingredients: [], steps: [] };
+    return {
+      slides: SLIDES.map((s, i) => ({ ...s, opacity: i === st.slide ? 1 : 0, pe: i === st.slide ? 'auto' : 'none',
+        dotW: i === st.slide ? '32px' : '8px', dotBg: i === st.slide ? '#fff' : 'rgba(255,255,255,0.5)', go: () => this.go(i) })),
+      prevSlide: () => this.go(st.slide - 1),
+      nextSlide: () => this.go(st.slide + 1),
+      nutris: NUTRIS,
+      prodCats, products, recCats, recTags, recipes,
+      noResults: recipes.length === 0,
+      clearFilters: () => this.setState({ recCat: 'Todas', tag: null, query: '' }),
+      query: st.query,
+      onQuery: e => this.setState({ query: e.target.value }),
+      featured,
+      openFeatured: () => this.setState({ selected: FEATURED_ID }),
+      hasSelected: !!selR, sel,
+      closeRecipe: () => this.setState({ selected: null }),
+      downloadPdf: () => selR && this.printRecipe(selR),
+      stop: e => e.stopPropagation()
+    };
+  }
+}
+</script>
+</body>
+</html>
