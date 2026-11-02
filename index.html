@@ -54,7 +54,14 @@ body{overflow-x:clip}
   .m-prod-row{flex-direction:column;gap:4px !important}
   .m-prod-name{font-size:16px !important}
   .m-prod-price{font-size:19px !important}
-  .m-prod-btn{padding:10px 8px !important;font-size:13px !important;margin-top:auto}
+  .m-prod-actions{margin-top:auto;gap:6px !important}
+  .m-prod-btn{padding:10px 8px !important;font-size:13px !important}
+  .m-wa-full{display:none}
+  .m-cart-add{width:38px !important;height:38px !important}
+  .m-cart-add img{width:18px !important;height:18px !important}
+  .m-cart-fab{right:16px !important;bottom:16px !important;width:56px !important;height:56px !important}
+  .m-cart-panel{max-width:none !important}
+  .m-cart-pad{padding-left:16px !important;padding-right:16px !important}
   .m-prod-tag{top:8px !important;left:8px !important;font-size:11px !important;padding:4px 9px !important}
   .m-chips{flex-wrap:nowrap !important;overflow-x:auto;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .m-chips::-webkit-scrollbar{display:none}
@@ -224,7 +231,7 @@ body{overflow-x:clip}
         <div style="font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#5a6b9a;margin-bottom:16px">La despensa</div>
         <h2 class="m-h2" style="font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(36px,4.6vw,60px);line-height:1.05;margin:0;max-width:720px;text-wrap:balance">Productos naturales que usamos de verdad</h2>
       </div>
-      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Elegí lo que quieras y pedilo por WhatsApp. Retiro en Río Cuarto o envío a coordinar.</p>
+      <p style="font-size:17px;line-height:1.55;margin:0;max-width:380px;color:#3b4870">Sumá lo que quieras al carrito y pedí todo junto por WhatsApp. Retiro en Río Cuarto o envío a coordinar.</p>
     </div>
     <div class="m-chips" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px">
       <sc-for list="{{ prodCats }}" as="c" hint-placeholder-count="5">
@@ -243,7 +250,13 @@ body{overflow-x:clip}
             <span class="m-prod-price" style="font-family:'DM Serif Display',serif;font-size:22px;white-space:nowrap">{{ p.price }}</span>
           </div>
           <div style="font-size:15px;color:#5a6b9a;margin-top:-8px">{{ p.size }}</div>
-          <a class="m-prod-btn" href="{{ p.wa }}" target="_blank" rel="noopener" style="text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1">Pedir por WhatsApp</a>
+          <div class="m-prod-actions" style="display:flex;gap:8px;align-items:stretch">
+            <a class="m-prod-btn" href="{{ p.wa }}" target="_blank" rel="noopener" style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid #1e2d5a;padding:12px 18px;border-radius:999px;font-weight:500;font-size:15px" style-hover="background:#1e2d5a;color:#f8f6f1"><span class="m-wa-full">Pedir por&nbsp;</span>WhatsApp</a>
+            <button class="m-cart-add" onClick="{{ p.add }}" aria-label="Agregar {{ p.name }} al carrito" title="Agregar al carrito" style="position:relative;flex:0 0 auto;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:#1e2d5a;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#3d5594">
+              <img src="assets/carrito.svg" alt="" style="width:22px;height:22px;display:block">
+              <sc-if value="{{ p.qty }}"><span style="position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#f8f6f1;color:#1e2d5a;border:1.5px solid #1e2d5a;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center">{{ p.qty }}</span></sc-if>
+            </button>
+          </div>
         </article>
       </sc-for>
     </div>
@@ -372,6 +385,60 @@ body{overflow-x:clip}
   </div>
 </sc-if>
 
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+  <button class="m-cart-fab" onClick="{{ openCart }}" aria-label="Ver el carrito ({{ cartCount }})" style="position:fixed;right:24px;bottom:24px;z-index:90;width:64px;height:64px;padding:0;border:0;border-radius:50%;background:#1e2d5a;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 28px rgba(20,30,62,0.28)" style-hover="background:#3d5594">
+    <img src="assets/carrito.svg" alt="" style="width:28px;height:28px;display:block">
+    <span style="position:absolute;top:-3px;right:-3px;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#f8f6f1;color:#1e2d5a;border:2px solid #1e2d5a;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span>
+  </button>
+</sc-if>
+
+<sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeCart }}" style="position:fixed;inset:0;z-index:110;background:rgba(20,30,62,0.55);display:flex;justify-content:flex-end">
+    <aside class="m-cart-panel" onClick="{{ stop }}" role="dialog" aria-label="Tu pedido" style="background:#f8f6f1;width:100%;max-width:440px;height:100%;display:flex;flex-direction:column;box-shadow:-12px 0 32px rgba(20,30,62,0.18)">
+      <div class="m-cart-pad" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid #e1e3e8">
+        <h2 style="font-family:'DM Serif Display',serif;font-weight:400;font-size:30px;margin:0">Tu pedido</h2>
+        <button onClick="{{ closeCart }}" aria-label="Cerrar el carrito" style="width:44px;height:44px;border-radius:50%;border:1px solid #c9d1e3;background:transparent;color:#1e2d5a;font-size:18px;cursor:pointer;font-family:inherit">✕</button>
+      </div>
+      <div class="m-cart-pad" style="flex:1;overflow-y:auto;padding:8px 24px">
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:56px 0;color:#3b4870;font-size:17px;line-height:1.5">Todavía no agregaste nada.<br>Tocá el carrito de un producto para sumarlo.</div>
+        </sc-if>
+        <sc-for list="{{ cartItems }}" as="it" hint-placeholder-count="2">
+          <div style="display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px dashed #d4d9e4">
+            <img src="assets/prod-{{ it.id }}.jpg" alt="" style="width:64px;height:64px;border-radius:14px;object-fit:cover;background:#eceae3;display:block">
+            <div style="min-width:0">
+              <div style="font-weight:500;font-size:16px;line-height:1.25">{{ it.name }}</div>
+              <div style="font-size:14px;color:#5a6b9a;margin-top:2px">{{ it.size }} · {{ it.unit }} c/u</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:10px">
+                <button onClick="{{ it.dec }}" aria-label="Restar uno" style="width:32px;height:32px;border-radius:50%;border:1px solid #1e2d5a;background:transparent;color:#1e2d5a;font-size:18px;line-height:1;cursor:pointer;font-family:inherit">−</button>
+                <span style="min-width:28px;text-align:center;font-weight:600;font-size:16px">{{ it.qty }}</span>
+                <button onClick="{{ it.inc }}" aria-label="Sumar uno" style="width:32px;height:32px;border-radius:50%;border:0;background:#1e2d5a;color:#f8f6f1;font-size:18px;line-height:1;cursor:pointer;font-family:inherit">+</button>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+              <span style="font-family:'DM Serif Display',serif;font-size:20px;white-space:nowrap">{{ it.sub }}</span>
+              <button onClick="{{ it.remove }}" style="background:none;border:0;padding:0;color:#5a6b9a;font-family:inherit;font-size:13px;cursor:pointer;border-bottom:1px solid #c9d1e3">Quitar</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+        <div class="m-cart-pad" style="padding:20px 24px 24px;border-top:1px solid #e1e3e8;display:grid;gap:14px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <span style="font-size:15px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a">Total</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:30px">{{ cartTotal }}</span>
+          </div>
+          <a href="{{ cartWa }}" target="_blank" rel="noopener" style="text-align:center;background:#1e2d5a;color:#f8f6f1;padding:16px 22px;border-radius:999px;font-weight:500;font-size:16px" style-hover="background:#3d5594;color:#f8f6f1">Pedir todo por WhatsApp</a>
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:14px;color:#5a6b9a">
+            <span>Retiro en Río Cuarto o envío a coordinar.</span>
+            <button onClick="{{ clearCart }}" style="background:none;border:0;padding:0;color:#5a6b9a;font-family:inherit;font-size:14px;cursor:pointer;border-bottom:1px solid #c9d1e3;white-space:nowrap">Vaciar</button>
+          </div>
+        </div>
+      </sc-if>
+    </aside>
+  </div>
+</sc-if>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;heroAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Slider&quot;},&quot;pedidosA&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Martina&quot;,&quot;Jose&quot;],&quot;default&quot;:&quot;Martina&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Productos&quot;}}">
@@ -439,10 +506,40 @@ const RECIPES = [
 ];
 const FEATURED_ID = 'budin-banana';
 
+// Carrito: { idProducto: cantidad }. Se guarda en el navegador para que no se pierda al recargar;
+// si el navegador no deja guardar (modo privado), anda igual mientras la página esté abierta.
+const CART_KEY = 'edn-carrito';
+const MAX_QTY = 99;
+const priceNum = p => parseInt(String(p.price).replace(/\D/g, ''), 10) || 0;
+const money = n => '$' + n.toLocaleString('es-AR');
+function loadCart() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+    const cart = {};
+    for (const p of PRODUCTS) { const q = parseInt(saved[p.id], 10); if (q > 0) cart[p.id] = Math.min(q, MAX_QTY); }
+    return cart;
+  } catch (e) { return {}; }
+}
+function saveCart(cart) { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} }
+
 class Component extends DCLogic {
-  state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null, menu: false };
-  componentDidMount() { this.startTimer(); }
-  componentWillUnmount() { clearInterval(this.timer); }
+  state = { slide: 0, prodCat: 'Todos', recCat: 'Todas', tag: null, query: '', selected: null, menu: false, cart: loadCart(), cartOpen: false };
+  componentDidMount() {
+    this.startTimer();
+    this.onKey = e => { if (e.key === 'Escape' && this.state.cartOpen) this.setState({ cartOpen: false }); };
+    document.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { clearInterval(this.timer); document.removeEventListener('keydown', this.onKey); }
+  // d = +1 / -1; null = sacar el producto entero.
+  changeQty(id, d) {
+    this.setState(s => {
+      const cart = { ...s.cart };
+      const q = d === null ? 0 : (cart[id] || 0) + d;
+      if (q > 0) cart[id] = Math.min(q, MAX_QTY); else delete cart[id];
+      saveCart(cart);
+      return { cart };
+    });
+  }
   startTimer() {
     clearInterval(this.timer);
     if (this.props.heroAutoplay === false) return;
@@ -493,8 +590,18 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
     const chip = (active) => ({ bg: active ? '#1e2d5a' : 'transparent', fg: active ? '#f8f6f1' : '#1e2d5a' });
     const prodCats = ['Todos', ...new Set(PRODUCTS.map(p => p.cat))].map(c => ({ label: c, ...chip(st.prodCat === c), pick: () => this.setState({ prodCat: c }) }));
     const products = PRODUCTS.filter(p => st.prodCat === 'Todos' || p.cat === st.prodCat).map(p => ({
-      ...p, wa: `https://wa.me/${owner}?text=${encodeURIComponent(`¡Hola! Quiero pedir: ${p.name} (${p.size})`)}`
+      ...p, wa: `https://wa.me/${owner}?text=${encodeURIComponent(`¡Hola! Quiero pedir: ${p.name} (${p.size})`)}`,
+      qty: st.cart[p.id] || 0, add: () => this.changeQty(p.id, 1)
     }));
+    const cartItems = PRODUCTS.filter(p => st.cart[p.id]).map(p => {
+      const qty = st.cart[p.id];
+      return { ...p, qty, unit: p.price, subNum: priceNum(p) * qty, sub: money(priceNum(p) * qty),
+        inc: () => this.changeQty(p.id, 1), dec: () => this.changeQty(p.id, -1), remove: () => this.changeQty(p.id, null) };
+    });
+    const cartCount = cartItems.reduce((n, it) => n + it.qty, 0);
+    const cartTotal = money(cartItems.reduce((n, it) => n + it.subNum, 0));
+    const cartMsg = '¡Hola! Quiero pedir:\n' + cartItems.map(it => `• ${it.qty} x ${it.name} (${it.size}) — ${it.sub}`).join('\n')
+      + `\n\nTotal: ${cartTotal}\n¿Cómo coordinamos el retiro o el envío?`;
     const recCats = ['Todas', 'Desayunos', 'Almuerzos', 'Cenas', 'Snacks', 'Dulces'].map(c => ({ label: c, ...chip(st.recCat === c), pick: () => this.setState({ recCat: c }) }));
     const allTags = [...new Set(RECIPES.flatMap(r => r.tags))];
     const recTags = allTags.map(t => ({ label: t, bg: st.tag === t ? '#5a6b9a' : 'transparent', fg: st.tag === t ? '#fff' : '#3b4870', pick: () => this.setState(s => ({ tag: s.tag === t ? null : t })) }));
@@ -521,6 +628,13 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
       closeMenu: () => this.setState({ menu: false }),
       nutris: NUTRIS,
       prodCats, products, recCats, recTags, recipes,
+      cartItems, cartCount, cartTotal,
+      hasCart: cartCount > 0, cartEmpty: cartCount === 0,
+      cartWa: `https://wa.me/${owner}?text=${encodeURIComponent(cartMsg)}`,
+      cartOpen: st.cartOpen,
+      openCart: () => this.setState({ cartOpen: true }),
+      closeCart: () => this.setState({ cartOpen: false }),
+      clearCart: () => { saveCart({}); this.setState({ cart: {} }); },
       noResults: recipes.length === 0,
       clearFilters: () => this.setState({ recCat: 'Todas', tag: null, query: '' }),
       query: st.query,
