@@ -174,7 +174,7 @@ body{overflow-x:clip}
           </div>
           <div class="m-pad" style="padding:28px;display:grid;gap:24px;border-top:1px solid #e1e3e8;flex:1">
             <div>
-              <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">Horarios</div>
+              <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:12px">Dónde atiende</div>
               <div style="display:grid;gap:0">
                 <sc-for list="{{ n.hours }}" as="h" hint-placeholder-count="3">
                   <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed #d4d9e4;font-size:16px">
@@ -186,11 +186,11 @@ body{overflow-x:clip}
             </div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;font-size:15px;line-height:1.45">
               <div>
-                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Consultorio</div>
+                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Modalidad</div>
                 <div>{{ n.place }}</div>
               </div>
               <div>
-                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Especialidades</div>
+                <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#5a6b9a;margin-bottom:6px">Cómo te acompaña</div>
                 <div>{{ n.specs }}</div>
               </div>
             </div>
@@ -314,7 +314,7 @@ body{overflow-x:clip}
       <div style="font-size:15px">Nutrición basada en la evidencia · Río Cuarto, Córdoba</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;font-size:16px">
-      <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#8fa3d4;margin-bottom:6px">Lic. Jose Koch</div>
+      <div style="font-size:13px;letter-spacing:1.6px;text-transform:uppercase;color:#8fa3d4;margin-bottom:6px">Lic. Josefina Koch</div>
       <a href="https://wa.me/5493585165160" style="color:#f8f6f1">3585 16-5160</a>
       <a href="#turnos" style="color:#f8f6f1">Sacar turno</a>
     </div>
@@ -382,15 +382,15 @@ const SLIDES = [
   { id: 'dulce', kicker: 'Sí, hay postre', title: 'El chocolate también entra en un plan. Te enseñamos cómo.', ph: 'Foto: postre saludable' }
 ];
 const NUTRIS = [
-  { short: 'Jose', name: 'Jose Koch', role: 'Lic. en Nutrición', mp: 'M.P. 0000 · Universidad de Mendoza', photo: 'assets/jose.png', pos: '62% 30%',
-    bio: 'Fan de las meriendas armadas y de los planes que se adaptan a tu rutina (y no al revés).',
-    hours: [{ day: 'Lunes y miércoles', time: '9:00 a 13:00' }, { day: 'Jueves', time: '15:00 a 20:00' }, { day: 'Online', time: 'Martes 17:00 a 20:00' }],
-    place: 'Consultorio en el centro de Río Cuarto · también online', specs: 'Nutrición deportiva, descenso de peso, alimentación vegetariana',
+  { short: 'Jose', name: 'Josefina Koch', role: 'Lic. en Nutrición', mp: 'M.P. 5363 · Universidad de Mendoza', photo: 'assets/jose.png', pos: '62% 30%',
+    bio: '¿Y si empezás por tu alimentación? Mi objetivo es acompañarte a mejorarla con un plan hecho a tu medida.',
+    hours: [{ day: 'CARS · Hipólito Yrigoyen 1071', time: 'Martes y jueves' }, { day: 'Consulta online', time: 'Pedí turno por WhatsApp' }],
+    place: 'Presencial y online', specs: 'Plan personalizado (adaptado a tus necesidades y objetivos), flexible (respeta tus gustos, preferencias y rutina) y sostenible (cambios que puedas mantener en el tiempo)',
     agenda: 'https://calendly.com/', phone: '3585 16-5160', wa: 'https://wa.me/5493585165160' },
-  { short: 'Marti', name: 'Martina Spernanzoni', role: 'Lic. en Nutrición', mp: 'M.P. 0000 · Universidad de Mendoza', photo: 'assets/martina.png', pos: '50% 35%',
-    bio: 'Defensora oficial del mate con algo rico. Cree que ningún alimento es enemigo.',
-    hours: [{ day: 'Martes y jueves', time: '8:30 a 12:30' }, { day: 'Viernes', time: '14:00 a 19:00' }, { day: 'Online', time: 'Lunes 18:00 a 21:00' }],
-    place: 'Consultorio en barrio Banda Norte, Río Cuarto · también online', specs: 'Relación con la comida, salud digestiva, alimentación familiar',
+  { short: 'Marti', name: 'Martina Spernanzoni', role: 'Lic. en Nutrición', mp: 'M.P. 5351 · Universidad de Mendoza', photo: 'assets/martina.png', pos: '50% 35%',
+    bio: 'Te acompaño a construir hábitos saludables, reales y sostenibles, adaptados a vos.',
+    hours: [{ day: '@daphne_estetica_integral', time: 'Dr. Carlos Gaudard 967' }, { day: '@masquelindas1', time: 'San Martín 442' }, { day: 'Consulta online', time: 'Pedí turno por WhatsApp' }],
+    place: 'Presencial y online · atiende obras sociales y prepagas (consultá por tu cobertura)', specs: 'Organización de tus comidas, educación alimentaria y cambio de hábitos, evaluación de la composición corporal, guías alimentarias personalizadas',
     agenda: 'https://calendly.com/', phone: '3584 36-6160', wa: 'https://wa.me/5493584366160' }
 ];
 const PRODUCTS = [
@@ -467,7 +467,7 @@ ol{margin:0;padding-left:20px}ol li{border:0;padding:4px 0 8px}.foot{margin-top:
 <div class="meta"><span>Tiempo: ${esc(r.time)}</span><span>${r.servings} porciones</span>${r.tags.map(t => '<span>' + esc(t) + '</span>').join('')}</div>
 <div class="cols"><div><h2>Ingredientes</h2><ul>${r.ingredients.map(i => '<li>' + esc(i) + '</li>').join('')}</ul></div>
 <div><h2>Paso a paso</h2><ol>${r.steps.map(s => '<li>' + esc(s) + '</li>').join('')}</ol></div></div>
-<div class="foot">Lic. Jose Koch · 3585 16-5160 &nbsp;·&nbsp; Lic. Martina Spernanzoni · 3584 36-6160 &nbsp;·&nbsp; @entredosnutris · Río Cuarto, Córdoba</div>
+<div class="foot">Lic. Josefina Koch · 3585 16-5160 &nbsp;·&nbsp; Lic. Martina Spernanzoni · 3584 36-6160 &nbsp;·&nbsp; @entredosnutris · Río Cuarto, Córdoba</div>
 </body></html>`;
     const old = document.getElementById('recipe-print-frame'); if (old) old.remove();
     const f = document.createElement('iframe');
